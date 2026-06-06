@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#5b21b6">
+<title>Quiz Brevet 3ᵉ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet:#6d28d9; --violet-dark:#4c1d95; --rose:#ec4899; --orange:#f59e0b;
+    --vert:#10b981; --rouge:#ef4444; --bleu:#3b82f6; --jaune:#fde047;
+    --ink:#1e1b4b; --paper:#fdfcff; --shadow:rgba(76,29,149,.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Nunito',sans-serif; color:var(--ink);
+    background:linear-gradient(160deg,#7c3aed 0%,#6d28d9 35%,#9333ea 70%,#c026d3 100%);
+    background-attachment:fixed; min-height:100vh;
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:env(safe-area-inset-top) 14px calc(env(safe-area-inset-bottom) + 14px);
+    overflow-x:hidden;
+  }
+  /* bulles décoratives */
+  .bubble{position:fixed;border-radius:50%;opacity:.12;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 30% 30%,#fff,transparent 70%)}
+  .b1{width:220px;height:220px;top:-60px;left:-50px}
+  .b2{width:160px;height:160px;bottom:8%;right:-40px}
+  .b3{width:120px;height:120px;top:40%;left:-30px}
+
+  .app{width:100%;max-width:560px;position:relative;z-index:1;margin-top:18px}
+
+  .card{
+    background:var(--paper); border-radius:28px; padding:26px 22px;
+    box-shadow:0 18px 50px var(--shadow),0 4px 0 rgba(0,0,0,.04);
+    position:relative; overflow:hidden;
+  }
+  .card::before{content:"";position:absolute;inset:0;height:8px;
+    background:linear-gradient(90deg,var(--rose),var(--orange),var(--jaune),var(--vert),var(--bleu),var(--violet))}
+
+  h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:2.1rem;line-height:1.05;
+    color:var(--violet-dark);letter-spacing:-.5px;margin-top:8px}
+  .sub{font-weight:700;color:var(--rose);font-size:1rem;margin-top:6px;letter-spacing:.5px;text-transform:uppercase}
+  .lead{margin:16px 0 4px;font-size:1.02rem;color:#4b5563;font-weight:600;line-height:1.5}
+
+  /* badge logo */
+  .logo{display:inline-flex;align-items:center;gap:8px;background:var(--jaune);
+    color:var(--violet-dark);font-family:'Fredoka',sans-serif;font-weight:700;
+    padding:7px 16px;border-radius:999px;font-size:.95rem;
+    box-shadow:0 4px 0 #d4b106;transform:rotate(-2deg)}
+
+  /* sélection des matières */
+  .section-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.05rem;
+    color:var(--violet-dark);margin:22px 0 10px}
+  .subjects{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .subj{
+    border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;
+    font-size:.98rem;color:#fff;padding:16px 12px;border-radius:18px;
+    display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;
+    transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+    position:relative;line-height:1.1;
+  }
+  .subj .emo{font-size:1.7rem}
+  .subj .cnt{font-size:.72rem;font-weight:700;opacity:.9}
+  .subj:active{transform:scale(.95)}
+  .subj.off{filter:grayscale(.7) brightness(.92);opacity:.55}
+  .subj .check{position:absolute;top:8px;right:10px;font-size:1rem;opacity:0;transition:.15s}
+  .subj:not(.off) .check{opacity:1}
+  .c-hist{background:linear-gradient(150deg,#3b82f6,#1d4ed8);box-shadow:0 6px 0 #1e40af}
+  .c-fr{background:linear-gradient(150deg,#ec4899,#be185d);box-shadow:0 6px 0 #9d174d}
+  .c-math{background:linear-gradient(150deg,#10b981,#059669);box-shadow:0 6px 0 #047857}
+  .c-sci{background:linear-gradient(150deg,#f59e0b,#d97706);box-shadow:0 6px 0 #b45309}
+
+  .row{display:flex;gap:10px;align-items:center;margin-top:18px}
+  .seg{flex:1;display:flex;background:#f1eafe;border-radius:14px;padding:4px}
+  .seg button{flex:1;border:none;background:transparent;font-family:'Nunito';font-weight:800;
+    font-size:.9rem;color:#7c3aed;padding:9px 4px;border-radius:10px;cursor:pointer;transition:.15s}
+  .seg button.active{background:var(--violet);color:#fff;box-shadow:0 3px 8px var(--shadow)}
+
+  .btn{
+    width:100%;border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;
+    font-size:1.25rem;color:#fff;padding:18px;border-radius:20px;margin-top:22px;
+    background:linear-gradient(150deg,var(--rose),#db2777);
+    box-shadow:0 7px 0 #9d174d,0 12px 24px rgba(219,39,119,.35);
+    transition:transform .12s ease,box-shadow .12s ease;letter-spacing:.3px;
+  }
+  .btn:active{transform:translateY(4px);box-shadow:0 3px 0 #9d174d,0 6px 14px rgba(219,39,119,.3)}
+  .btn.green{background:linear-gradient(150deg,var(--vert),#059669);box-shadow:0 7px 0 #047857,0 12px 24px rgba(5,150,105,.3)}
+  .btn.ghost{background:#f1eafe;color:var(--violet);box-shadow:0 5px 0 #d8c7f5}
+
+  .hint{text-align:center;font-size:.82rem;color:#9ca3af;font-weight:700;margin-top:14px}
+
+  /* ---- écran de jeu ---- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .pill{font-family:'Fredoka';font-weight:600;background:#f1eafe;color:var(--violet);
+    padding:6px 14px;border-radius:999px;font-size:.9rem}
+  .pill.score{background:var(--jaune);color:var(--violet-dark);box-shadow:0 3px 0 #d4b106}
+  .tagsubj{font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;
+    padding:5px 12px;border-radius:999px;color:#fff}
+
+  .progress{height:12px;background:#eee6fb;border-radius:999px;overflow:hidden;margin:14px 0 6px}
+  .progress>i{display:block;height:100%;border-radius:999px;
+    background:linear-gradient(90deg,var(--rose),var(--orange),var(--vert));
+    width:0;transition:width .4s cubic-bezier(.4,1.3,.6,1)}
+
+  .qcount{font-size:.8rem;font-weight:800;color:#9ca3af;margin-bottom:10px}
+  .question{font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.45rem;line-height:1.25;
+    color:var(--ink);margin:6px 0 20px}
+
+  .answers{display:flex;flex-direction:column;gap:12px}
+  .ans{
+    border:3px solid #ede9fe;background:#faf8ff;cursor:pointer;text-align:left;
+    font-family:'Nunito';font-weight:700;font-size:1.06rem;color:var(--ink);
+    padding:16px 18px;border-radius:18px;transition:transform .1s,border-color .15s,background .15s;
+    display:flex;align-items:center;gap:12px;
+  }
+  .ans .key{flex:0 0 30px;height:30px;border-radius:9px;background:#ede9fe;color:var(--violet);
+    display:grid;place-items:center;font-family:'Fredoka';font-weight:600;font-size:1rem}
+  .ans:active{transform:scale(.98)}
+  .ans.correct{border-color:var(--vert);background:#e7f9f1}
+  .ans.correct .key{background:var(--vert);color:#fff}
+  .ans.wrong{border-color:var(--rouge);background:#fdeaea}
+  .ans.wrong .key{background:var(--rouge);color:#fff}
+  .ans.dim{opacity:.5}
+  .ans.locked{cursor:default}
+
+  .explain{margin-top:18px;background:#f5f0ff;border-left:5px solid var(--violet);
+    border-radius:12px;padding:14px 16px;font-size:.96rem;font-weight:600;color:#4b3a78;
+    line-height:1.45;display:none}
+  .explain.show{display:block;animation:pop .3s ease}
+  .explain b{color:var(--violet-dark)}
+  @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .next{margin-top:16px;display:none}
+  .next.show{display:block}
+
+  /* ---- écran résultat ---- */
+  .result{text-align:center}
+  .medal{font-size:4.5rem;margin:6px 0;animation:bounce .6s ease}
+  @keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+  .bigscore{font-family:'Fredoka';font-weight:700;font-size:3.4rem;color:var(--violet-dark);line-height:1}
+  .bigscore small{font-size:1.4rem;color:#9ca3af}
+  .verdict{font-family:'Fredoka';font-weight:500;font-size:1.3rem;color:var(--rose);margin:8px 0 4px}
+  .reslist{margin-top:18px;text-align:left;display:flex;flex-direction:column;gap:8px;max-height:230px;overflow-y:auto;padding-right:4px}
+  .resitem{background:#faf8ff;border-radius:12px;padding:10px 14px;font-size:.9rem;font-weight:700;display:flex;gap:10px;align-items:flex-start}
+  .resitem .ic{flex:0 0 auto;font-size:1.1rem}
+  .resitem.ok{border-left:4px solid var(--vert)}
+  .resitem.no{border-left:4px solid var(--rouge)}
+  .resitem em{display:block;font-weight:600;color:#6b7280;font-style:normal;font-size:.82rem;margin-top:2px}
+
+  .fade{animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .hide{display:none!important}
+
+  /* confettis */
+  .confetti{position:fixed;top:-12px;width:10px;height:14px;z-index:50;border-radius:2px;pointer-events:none}
+  @media(min-width:600px){h1{font-size:2.4rem}}
+</style>
+</head>
+<body>
+<div class="bubble b1"></div><div class="bubble b2"></div><div class="bubble b3"></div>
+
+<div class="app">
+
+  <!-- ====== ACCUEIL ====== -->
+  <section id="home" class="card fade">
+    <span class="logo">🎓 Brevet 3ᵉ</span>
+    <h1>Quiz du Brevet</h1>
+    <div class="sub">Révise en t'amusant</div>
+    <p class="lead">Choisis tes matières, lance le quiz et grimpe au sommet du score&nbsp;! 🚀</p>
+
+    <div class="section-title">📚 Matières</div>
+    <div class="subjects" id="subjects">
+      <button class="subj c-hist" data-key="hist"><span class="check">✓</span><span class="emo">🏛️</span>Histoire-Géo-EMC<span class="cnt"></span></button>
+      <button class="subj c-fr"   data-key="fr"><span class="check">✓</span><span class="emo">📖</span>Français<span class="cnt"></span></button>
+      <button class="subj c-math" data-key="math"><span class="check">✓</span><span class="emo">📐</span>Mathématiques<span class="cnt"></span></button>
+      <button class="subj c-sci"  data-key="sci"><span class="check">✓</span><span class="emo">🔬</span>Sciences<span class="cnt"></span></button>
+    </div>
+
+    <div class="section-title">🎯 Nombre de questions</div>
+    <div class="seg" id="lenSeg">
+      <button data-len="5">5</button>
+      <button data-len="10" class="active">10</button>
+      <button data-len="20">20</button>
+      <button data-len="0">Max</button>
+    </div>
+
+    <button class="btn" id="startBtn">▶ Commencer</button>
+    <p class="hint">Astuce iPhone : Partager → « Sur l'écran d'accueil » 📲</p>
+  </section>
+
+  <!-- ====== JEU ====== -->
+  <section id="game" class="card hide">
+    <div class="topbar">
+      <span class="pill" id="qIndex">1 / 10</span>
+      <span class="tagsubj" id="qSubject">Matière</span>
+      <span class="pill score" id="scorePill">⭐ 0</span>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="qcount" id="streakTxt"></div>
+    <div class="question" id="qText">…</div>
+    <div class="answers" id="answers"></div>
+    <div class="explain" id="explain"></div>
+    <div class="next"><button class="btn green" id="nextBtn">Suivant →</button></div>
+  </section>
+
+  <!-- ====== RÉSULTAT ====== -->
+  <section id="result" class="card result hide">
+    <div class="medal" id="medal">🏆</div>
+    <div class="bigscore"><span id="finalScore">0</span><small>/<span id="finalTotal">0</span></small></div>
+    <div class="verdict" id="verdict">Bravo !</div>
+    <p class="lead" id="resMsg" style="text-align:center"></p>
+    <div class="reslist" id="reslist"></div>
+    <button class="btn green" id="againBtn">🔁 Rejouer</button>
+    <button class="btn ghost" id="homeBtn">🏠 Accueil</button>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   BANQUE DE QUESTIONS
+   Chaque question : { q, a:[...], correct:index, exp }
+   ============================================================ */
+const BANK = {
+  hist: { label:"Histoire-Géo-EMC", color:"#2563eb", questions:[
+    {q:"Quand se déroule la Première Guerre mondiale ?",a:["1914-1918","1918-1924","1939-1945","1900-1910"],correct:0,exp:"La Grande Guerre commence en 1914 et se termine par l'armistice du 11 novembre 1918."},
+    {q:"Quel attentat déclenche la Première Guerre mondiale ?",a:["L'attentat de Sarajevo","La prise de la Bastille","L'attentat de Marseille","Le coup de Prague"],correct:0,exp:"L'assassinat de l'archiduc François-Ferdinand à Sarajevo le 28 juin 1914 met le feu aux poudres."},
+    {q:"Qui dirige l'URSS pendant l'entre-deux-guerres ?",a:["Staline","Lénine","Trotski","Gorbatchev"],correct:0,exp:"Staline dirige l'URSS de 1924 à 1953 dans un régime totalitaire communiste."},
+    {q:"En quelle année Hitler arrive-t-il au pouvoir ?",a:["1933","1929","1939","1925"],correct:0,exp:"Hitler devient chancelier de l'Allemagne en janvier 1933."},
+    {q:"Comment nomme-t-on le génocide des Juifs par les nazis ?",a:["La Shoah","La Terreur","Le Goulag","La Diaspora"],correct:0,exp:"La Shoah a causé la mort d'environ 6 millions de Juifs d'Europe."},
+    {q:"Quelle est la date du débarquement de Normandie ?",a:["6 juin 1944","8 mai 1945","11 nov. 1918","1er sept. 1939"],correct:0,exp:"Le D-Day du 6 juin 1944 ouvre un nouveau front à l'Ouest."},
+    {q:"Qui lance l'appel du 18 juin 1940 ?",a:["Charles de Gaulle","Philippe Pétain","Winston Churchill","Jean Moulin"],correct:0,exp:"Depuis Londres, de Gaulle appelle à poursuivre le combat : c'est l'acte fondateur de la France libre."},
+    {q:"Que sépare le mur de Berlin (1961-1989) ?",a:["Berlin-Est et Berlin-Ouest","La France et l'Allemagne","L'Europe et l'Asie","Le Nord et le Sud"],correct:0,exp:"Symbole de la guerre froide, il sépare la ville jusqu'à sa chute le 9 novembre 1989."},
+    {q:"En quelle année l'Algérie devient-elle indépendante ?",a:["1962","1945","1958","1975"],correct:0,exp:"Les accords d'Évian de 1962 mettent fin à la guerre d'Algérie."},
+    {q:"Qui fonde la Ve République en 1958 ?",a:["Charles de Gaulle","François Mitterrand","Georges Pompidou","Léon Blum"],correct:0,exp:"De Gaulle fonde la Ve République, avec un pouvoir exécutif renforcé."},
+    {q:"En quelle année les femmes obtiennent-elles le droit de vote en France ?",a:["1944","1789","1900","1975"],correct:0,exp:"Le droit de vote des femmes est accordé en 1944, premier vote en 1945."},
+    {q:"Que garantit la loi de 1905 ?",a:["La laïcité","Le droit de grève","La liberté de la presse","Les congés payés"],correct:0,exp:"La loi de 1905 sépare les Églises et l'État : c'est le fondement de la laïcité."},
+    {q:"Quelle est la devise de la République française ?",a:["Liberté, Égalité, Fraternité","Un pour tous, tous pour un","Travail, Famille, Patrie","Paix et Justice"],correct:0,exp:"Cette devise héritée de la Révolution figure sur les frontons des bâtiments publics."},
+    {q:"Quel pourcentage des Français vit dans une aire urbaine ?",a:["Plus de 80 %","Environ 30 %","La moitié","20 %"],correct:0,exp:"Plus de 80 % de la population vit dans une aire urbaine : la France est très urbanisée."},
+    {q:"Combien d'États membres compte l'Union européenne ?",a:["27","15","12","50"],correct:0,exp:"Depuis le Brexit (2020), l'UE compte 27 États membres."},
+    {q:"Quelle est la monnaie unique de la zone euro (depuis 2002) ?",a:["L'euro","Le franc","Le mark","La livre"],correct:0,exp:"L'euro a été mis en circulation pour les particuliers en 2002."},
+    {q:"Comment appelle-t-on la concentration des activités dans les grandes villes ?",a:["La métropolisation","La désertification","La périurbanisation","La littoralisation"],correct:0,exp:"La métropolisation concentre population, activités et pouvoirs dans les métropoles."},
+    {q:"Qu'est-ce qu'un DROM ?",a:["Un département et région d'outre-mer","Une organisation européenne","Un type de traité","Une zone industrielle"],correct:0,exp:"Guadeloupe, Martinique, Guyane, La Réunion et Mayotte sont des DROM."},
+  ]},
+  fr: { label:"Français", color:"#db2777", questions:[
+    {q:"Quel est le sujet dans « Les élèves révisent le brevet » ?",a:["Les élèves","révisent","le brevet","brevet"],correct:0,exp:"Le sujet fait l'action : ce sont « les élèves » qui révisent."},
+    {q:"Quelle est la nature du mot « rapidement » ?",a:["Adverbe","Adjectif","Nom","Verbe"],correct:0,exp:"« Rapidement » modifie un verbe : c'est un adverbe (souvent en -ment)."},
+    {q:"À quel temps est « je mangeais » ?",a:["Imparfait","Passé composé","Futur","Présent"],correct:0,exp:"La terminaison -ais au singulier est caractéristique de l'imparfait."},
+    {q:"Quelle figure de style est « Cette femme est un lion » ?",a:["Une métaphore","Une comparaison","Une litote","Une hyperbole"],correct:0,exp:"La métaphore rapproche deux éléments sans mot de comparaison (contrairement à la comparaison avec « comme »)."},
+    {q:"Quelle figure dans « Il pleut des cordes » exagère ?",a:["L'hyperbole","La litote","L'euphémisme","La métonymie"],correct:0,exp:"L'hyperbole exagère pour marquer les esprits."},
+    {q:"Quel est le mode du verbe dans « Qu'il vienne ! » ?",a:["Le subjonctif","L'indicatif","L'impératif","Le conditionnel"],correct:0,exp:"« Qu'il vienne » exprime un ordre/souhait : c'est le subjonctif présent."},
+    {q:"Comment s'appelle celui qui raconte l'histoire ?",a:["Le narrateur","L'auteur","Le personnage","L'éditeur"],correct:0,exp:"Le narrateur est la voix qui raconte ; il ne se confond pas toujours avec l'auteur."},
+    {q:"Quel est le féminin de l'adjectif « heureux » ?",a:["heureuse","heureux","heureuxe","heureuse"],correct:0,exp:"Les adjectifs en -eux font leur féminin en -euse."},
+    {q:"« Une comparaison » contient toujours :",a:["un outil comme « comme »","un verbe d'action","un point d'exclamation","un nom propre"],correct:0,exp:"La comparaison utilise un mot-outil : comme, tel, semblable à, pareil à…"},
+    {q:"Quelle est la fonction de « rouge » dans « la voiture rouge » ?",a:["Épithète","Attribut","Complément d'objet","Sujet"],correct:0,exp:"L'adjectif placé directement à côté du nom est épithète."},
+    {q:"Dans un récit, le « discours direct » se reconnaît à :",a:["des guillemets et tirets","l'absence de ponctuation","l'emploi du futur","la 3e personne uniquement"],correct:0,exp:"Le discours direct rapporte les paroles entre guillemets, avec tirets dans le dialogue."},
+    {q:"Quel est le participe passé de « prendre » ?",a:["pris","prendu","prit","prener"],correct:0,exp:"« J'ai pris » : le participe passé de prendre est « pris »."},
+    {q:"« Ne… que » exprime :",a:["la restriction","la négation totale","l'interrogation","l'exclamation"],correct:0,exp:"« Il ne mange que des fruits » = il mange seulement des fruits : c'est une restriction."},
+    {q:"Quel registre cherche à faire rire ?",a:["Le comique","Le tragique","Le pathétique","Le lyrique"],correct:0,exp:"Le registre comique provoque le rire (jeux de mots, situations, etc.)."},
+  ]},
+  math: { label:"Mathématiques", color:"#059669", questions:[
+    {q:"Combien font 15 % de 200 ?",a:["30","15","45","20"],correct:0,exp:"15 % de 200 = 0,15 × 200 = 30."},
+    {q:"Quel est le PGCD de 12 et 18 ?",a:["6","2","3","36"],correct:0,exp:"Diviseurs communs : 1, 2, 3, 6. Le plus grand est 6."},
+    {q:"Développe (x + 3)(x + 2).",a:["x² + 5x + 6","x² + 6x + 5","x² + 6","2x + 5"],correct:0,exp:"Double distributivité : x² + 2x + 3x + 6 = x² + 5x + 6."},
+    {q:"Dans un triangle rectangle, quel théorème relie les côtés ?",a:["Pythagore","Thalès","Al-Kashi","Descartes"],correct:0,exp:"Le théorème de Pythagore : le carré de l'hypoténuse = somme des carrés des deux autres côtés."},
+    {q:"Quelle est l'aire d'un disque de rayon 5 (en fonction de π) ?",a:["25π","10π","5π","100π"],correct:0,exp:"Aire = π × r² = π × 5² = 25π."},
+    {q:"Résous : 2x + 4 = 10. Que vaut x ?",a:["3","2","6","7"],correct:0,exp:"2x = 6 donc x = 3."},
+    {q:"Quelle est la probabilité d'obtenir un 6 avec un dé à 6 faces ?",a:["1/6","1/3","1/2","6"],correct:0,exp:"Un cas favorable sur six possibles : 1/6."},
+    {q:"Combien font (-3) × (-4) ?",a:["12","-12","-7","7"],correct:0,exp:"Le produit de deux nombres négatifs est positif : 12."},
+    {q:"Quelle est la fraction simplifiée de 8/12 ?",a:["2/3","4/6","3/4","8/12"],correct:0,exp:"On divise par 4 : 8/12 = 2/3."},
+    {q:"Une fonction linéaire a pour forme :",a:["f(x) = ax","f(x) = ax + b","f(x) = x²","f(x) = b"],correct:0,exp:"La fonction linéaire est de la forme f(x) = ax (proportionnalité)."},
+    {q:"Combien de degrés mesure la somme des angles d'un triangle ?",a:["180°","360°","90°","270°"],correct:0,exp:"La somme des angles d'un triangle vaut toujours 180°."},
+    {q:"Quel est le volume d'un cube d'arête 3 cm ?",a:["27 cm³","9 cm³","18 cm³","12 cm³"],correct:0,exp:"Volume du cube = arête³ = 3³ = 27 cm³."},
+    {q:"Quelle est la racine carrée de 49 ?",a:["7","24,5","9","6"],correct:0,exp:"7 × 7 = 49, donc √49 = 7."},
+    {q:"Le théorème de Thalès concerne surtout :",a:["des droites parallèles","les angles droits","les probabilités","les pourcentages"],correct:0,exp:"Thalès s'utilise dans une configuration de droites parallèles coupant deux sécantes."},
+  ]},
+  sci: { label:"Sciences", color:"#d97706", questions:[
+    {q:"Quelle est la formule chimique de l'eau ?",a:["H₂O","CO₂","O₂","H₂O₂"],correct:0,exp:"L'eau est composée de 2 atomes d'hydrogène et 1 d'oxygène : H₂O."},
+    {q:"Quel organe pompe le sang dans le corps ?",a:["Le cœur","Le foie","Les poumons","Le cerveau"],correct:0,exp:"Le cœur est un muscle qui propulse le sang dans tout l'organisme."},
+    {q:"Quelle est l'unité de mesure de la force ?",a:["Le newton (N)","Le watt (W)","Le joule (J)","Le volt (V)"],correct:0,exp:"La force se mesure en newtons (N), en hommage à Isaac Newton."},
+    {q:"Quel gaz les plantes absorbent-elles pour la photosynthèse ?",a:["Le dioxyde de carbone","Le dioxygène","L'azote","L'hydrogène"],correct:0,exp:"Les plantes absorbent le CO₂ et rejettent du dioxygène (O₂)."},
+    {q:"Que mesure-t-on en volts ?",a:["La tension électrique","L'intensité","La résistance","La puissance"],correct:0,exp:"La tension électrique se mesure en volts (V) avec un voltmètre."},
+    {q:"De quoi sont composées les molécules ?",a:["D'atomes","De cellules","D'organes","De planètes"],correct:0,exp:"Les molécules sont des assemblages d'atomes liés entre eux."},
+    {q:"Quelle planète est la plus proche du Soleil ?",a:["Mercure","Vénus","La Terre","Mars"],correct:0,exp:"Mercure est la première planète du système solaire."},
+    {q:"Quel est le rôle des globules rouges ?",a:["Transporter le dioxygène","Combattre les microbes","Digérer les aliments","Produire l'énergie"],correct:0,exp:"Grâce à l'hémoglobine, les globules rouges transportent le dioxygène dans le sang."},
+    {q:"Quelle unité mesure l'intensité d'un courant électrique ?",a:["L'ampère (A)","Le volt (V)","Le watt (W)","L'ohm (Ω)"],correct:0,exp:"L'intensité se mesure en ampères (A) avec un ampèremètre branché en série."},
+    {q:"L'eau bout à quelle température (à pression normale) ?",a:["100 °C","0 °C","50 °C","212 °C"],correct:0,exp:"Au niveau de la mer, l'eau bout à 100 °C et gèle à 0 °C."},
+    {q:"Comment appelle-t-on le passage de l'état liquide à gazeux ?",a:["La vaporisation","La fusion","La solidification","La condensation"],correct:0,exp:"La vaporisation (ébullition ou évaporation) fait passer un liquide à l'état gazeux."},
+    {q:"Quelle cellule transmet l'information dans le système nerveux ?",a:["Le neurone","Le globule blanc","L'ovule","La plaquette"],correct:0,exp:"Le neurone est la cellule de base du système nerveux, qui transmet les messages."},
+    {q:"Quelle est la principale source d'énergie renouvelable du Soleil ?",a:["L'énergie solaire","Le charbon","Le pétrole","Le gaz naturel"],correct:0,exp:"L'énergie solaire est renouvelable, contrairement aux énergies fossiles."},
+  ]},
+};
+
+/* ============================================================
+   ÉTAT & LOGIQUE
+   ============================================================ */
+const state = { subjects:{hist:true,fr:true,math:true,sci:true}, len:10, queue:[], i:0, score:0, streak:0, answered:false, log:[] };
+
+const $ = s => document.querySelector(s);
+const homeEl=$("#home"), gameEl=$("#game"), resEl=$("#result");
+
+// afficher le nombre de questions par matière
+document.querySelectorAll(".subj").forEach(b=>{
+  const k=b.dataset.key;
+  b.querySelector(".cnt").textContent = BANK[k].questions.length+" questions";
+  b.addEventListener("click",()=>{
+    state.subjects[k]=!state.subjects[k];
+    b.classList.toggle("off",!state.subjects[k]);
+    // empêcher de tout désactiver
+    if(!Object.values(state.subjects).some(Boolean)){ state.subjects[k]=true; b.classList.remove("off"); }
+  });
+});
+
+// segment longueur
+$("#lenSeg").addEventListener("click",e=>{
+  const btn=e.target.closest("button"); if(!btn)return;
+  document.querySelectorAll("#lenSeg button").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active"); state.len=parseInt(btn.dataset.len,10);
+});
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function buildQueue(){
+  let pool=[];
+  Object.keys(state.subjects).forEach(k=>{
+    if(state.subjects[k]) BANK[k].questions.forEach((q,idx)=>pool.push({...q,subj:k,uid:k+idx}));
+  });
+  pool=shuffle(pool);
+  // pour chaque question, mélanger aussi les réponses
+  pool=pool.map(q=>{
+    const order=shuffle(q.a.map((_,i)=>i));
+    return {...q, a:order.map(i=>q.a[i]), correct:order.indexOf(q.correct)};
+  });
+  const n = state.len===0 ? pool.length : Math.min(state.len,pool.length);
+  state.queue=pool.slice(0,n);
+}
+
+function startGame(){
+  buildQueue();
+  state.i=0;state.score=0;state.streak=0;state.log=[];
+  homeEl.classList.add("hide");resEl.classList.add("hide");
+  gameEl.classList.remove("hide");gameEl.classList.add("fade");
+  renderQuestion();
+}
+
+function renderQuestion(){
+  state.answered=false;
+  const q=state.queue[state.i];
+  const meta=BANK[q.subj];
+  $("#qIndex").textContent=(state.i+1)+" / "+state.queue.length;
+  const tag=$("#qSubject");tag.textContent=meta.label;tag.style.background=meta.color;
+  $("#scorePill").textContent="⭐ "+state.score;
+  $("#bar").style.width=((state.i)/state.queue.length*100)+"%";
+  $("#streakTxt").textContent = state.streak>=3 ? ("🔥 Série de "+state.streak+" !") : "";
+  $("#qText").textContent=q.q;
+  $("#explain").className="explain";$("#explain").innerHTML="";
+  $(".next").className="next";
+
+  const keys=["A","B","C","D"];
+  const wrap=$("#answers");wrap.innerHTML="";
+  q.a.forEach((txt,idx)=>{
+    const b=document.createElement("button");
+    b.className="ans";
+    b.innerHTML='<span class="key">'+keys[idx]+'</span><span>'+txt+'</span>';
+    b.addEventListener("click",()=>choose(idx,b));
+    wrap.appendChild(b);
+  });
+}
+
+function choose(idx,btn){
+  if(state.answered)return;
+  state.answered=true;
+  const q=state.queue[state.i];
+  const all=[...document.querySelectorAll(".ans")];
+  all.forEach(a=>a.classList.add("locked"));
+  const correct = idx===q.correct;
+  if(correct){
+    btn.classList.add("correct");
+    state.score++;state.streak++;
+    all.forEach((a,i)=>{if(i!==idx)a.classList.add("dim")});
+    burst();
+  }else{
+    btn.classList.add("wrong");
+    state.streak=0;
+    all[q.correct].classList.add("correct");
+    all.forEach((a,i)=>{if(i!==idx&&i!==q.correct)a.classList.add("dim")});
+  }
+  $("#scorePill").textContent="⭐ "+state.score;
+  const ex=$("#explain");
+  ex.innerHTML=(correct?"<b>✅ Bonne réponse !</b> ":"<b>❌ Pas tout à fait.</b> ")+q.exp;
+  ex.classList.add("show");
+  $(".next").classList.add("show");
+  state.log.push({q:q.q, your:q.a[idx], good:q.a[q.correct], correct, exp:q.exp, subj:BANK[q.subj].label});
+}
+
+$("#startBtn").addEventListener("click",startGame);
+$("#nextBtn").addEventListener("click",()=>{
+  state.i++;
+  if(state.i>=state.queue.length) showResult();
+  else { renderQuestion(); gameEl.classList.remove("fade");void gameEl.offsetWidth;gameEl.classList.add("fade"); }
+});
+
+function showResult(){
+  gameEl.classList.add("hide");
+  resEl.classList.remove("hide");resEl.classList.add("fade");
+  const total=state.queue.length, sc=state.score, pct=Math.round(sc/total*100);
+  $("#finalScore").textContent=sc;$("#finalTotal").textContent=total;
+  let medal,verdict,msg;
+  if(pct>=90){medal="🏆";verdict="Champion du Brevet !";msg="Excellent, tu maîtrises ! Continue comme ça. 🌟";bigBurst();}
+  else if(pct>=70){medal="🥇";verdict="Très bien !";msg="Solide ! Revois juste les questions ratées ci-dessous.";bigBurst();}
+  else if(pct>=50){medal="🥈";verdict="Bon travail !";msg="Tu progresses. Relis les explications pour viser plus haut.";}
+  else{medal="📚";verdict="Continue à réviser !";msg="Pas de panique, l'entraînement paie. Relance un quiz !";}
+  $("#medal").textContent=medal;$("#verdict").textContent=verdict;$("#resMsg").textContent=msg;
+  const list=$("#reslist");list.innerHTML="";
+  state.log.forEach(r=>{
+    const d=document.createElement("div");
+    d.className="resitem "+(r.correct?"ok":"no");
+    d.innerHTML='<span class="ic">'+(r.correct?"✅":"❌")+'</span><span>'+r.q+
+      (r.correct?"":'<em>Bonne réponse : '+r.good+'</em>')+'</span>';
+    list.appendChild(d);
+  });
+}
+
+$("#againBtn").addEventListener("click",startGame);
+$("#homeBtn").addEventListener("click",()=>{
+  resEl.classList.add("hide");homeEl.classList.remove("hide");homeEl.classList.add("fade");
+});
+
+/* ---- confettis ---- */
+function piece(x,big){
+  const c=document.createElement("div");c.className="confetti";
+  const colors=["#ec4899","#f59e0b","#10b981","#3b82f6","#fde047","#a855f7"];
+  c.style.background=colors[Math.floor(Math.random()*colors.length)];
+  c.style.left=x+"px";c.style.top="-20px";
+  const dx=(Math.random()-.5)*200, fall=(big?600:380)+Math.random()*200, rot=Math.random()*720;
+  document.body.appendChild(c);
+  c.animate([{transform:"translate(0,0) rotate(0)",opacity:1},
+    {transform:`translate(${dx}px,${fall}px) rotate(${rot}deg)`,opacity:0}],
+    {duration:big?1400:900,easing:"cubic-bezier(.3,.7,.4,1)"}).onfinish=()=>c.remove();
+}
+function burst(){const x=window.innerWidth/2;for(let i=0;i<14;i++)piece(x+(Math.random()-.5)*120,false);}
+function bigBurst(){for(let i=0;i<60;i++)setTimeout(()=>piece(Math.random()*window.innerWidth,true),i*20);}
+</script>
+</body>
+</html>
