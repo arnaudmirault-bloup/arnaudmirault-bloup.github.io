@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#5b21b6">
-<title>Quiz Brevet 3ᵉ</title>
+<title>Quiz Brevet 3e</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -26,15 +26,12 @@
     padding:env(safe-area-inset-top) 14px calc(env(safe-area-inset-bottom) + 14px);
     overflow-x:hidden;
   }
-  /* bulles décoratives */
   .bubble{position:fixed;border-radius:50%;opacity:.12;pointer-events:none;z-index:0;
     background:radial-gradient(circle at 30% 30%,#fff,transparent 70%)}
   .b1{width:220px;height:220px;top:-60px;left:-50px}
   .b2{width:160px;height:160px;bottom:8%;right:-40px}
   .b3{width:120px;height:120px;top:40%;left:-30px}
-
   .app{width:100%;max-width:560px;position:relative;z-index:1;margin-top:18px}
-
   .card{
     background:var(--paper); border-radius:28px; padding:26px 22px;
     box-shadow:0 18px 50px var(--shadow),0 4px 0 rgba(0,0,0,.04);
@@ -42,21 +39,32 @@
   }
   .card::before{content:"";position:absolute;inset:0;height:8px;
     background:linear-gradient(90deg,var(--rose),var(--orange),var(--jaune),var(--vert),var(--bleu),var(--violet))}
-
   h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:2.1rem;line-height:1.05;
     color:var(--violet-dark);letter-spacing:-.5px;margin-top:8px}
   .sub{font-weight:700;color:var(--rose);font-size:1rem;margin-top:6px;letter-spacing:.5px;text-transform:uppercase}
   .lead{margin:16px 0 4px;font-size:1.02rem;color:#4b5563;font-weight:600;line-height:1.5}
-
-  /* badge logo */
   .logo{display:inline-flex;align-items:center;gap:8px;background:var(--jaune);
     color:var(--violet-dark);font-family:'Fredoka',sans-serif;font-weight:700;
     padding:7px 16px;border-radius:999px;font-size:.95rem;
     box-shadow:0 4px 0 #d4b106;transform:rotate(-2deg)}
-
-  /* sélection des matières */
   .section-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.05rem;
-    color:var(--violet-dark);margin:22px 0 10px}
+    color:var(--violet-dark);margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between}
+  .section-title .mini{font-family:'Nunito';font-weight:800;font-size:.72rem;color:#a78bda;text-transform:uppercase}
+  /* compte à rebours */
+  .countdowns{display:flex;flex-direction:column;gap:8px}
+  .cd{display:flex;align-items:center;gap:12px;background:#f7f3ff;border-radius:16px;padding:11px 14px;border-left:5px solid var(--violet)}
+  .cd .emo{font-size:1.4rem;flex:0 0 auto}
+  .cd .info{flex:1;line-height:1.15}
+  .cd .nm{font-weight:800;font-size:.95rem;color:var(--violet-dark)}
+  .cd .dt{font-size:.74rem;font-weight:700;color:#9b8ac4}
+  .cd .days{font-family:'Fredoka';font-weight:700;font-size:1.05rem;color:#fff;background:var(--rose);
+    border-radius:12px;padding:6px 12px;text-align:center;min-width:64px;line-height:1}
+  .cd .days small{display:block;font-size:.6rem;font-weight:700;opacity:.85;margin-top:2px}
+  .cd.hist{border-color:#2563eb}.cd.hist .days{background:#2563eb}
+  .cd.fr{border-color:#db2777}.cd.fr .days{background:#db2777}
+  .cd.sci{border-color:#d97706}.cd.sci .days{background:#d97706}
+  .cd.math{border-color:#059669}.cd.math .days{background:#059669}
+  .cd.done .days{background:#9ca3af}
   .subjects{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .subj{
     border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;
@@ -75,13 +83,10 @@
   .c-fr{background:linear-gradient(150deg,#ec4899,#be185d);box-shadow:0 6px 0 #9d174d}
   .c-math{background:linear-gradient(150deg,#10b981,#059669);box-shadow:0 6px 0 #047857}
   .c-sci{background:linear-gradient(150deg,#f59e0b,#d97706);box-shadow:0 6px 0 #b45309}
-
-  .row{display:flex;gap:10px;align-items:center;margin-top:18px}
-  .seg{flex:1;display:flex;background:#f1eafe;border-radius:14px;padding:4px}
+  .seg{display:flex;background:#f1eafe;border-radius:14px;padding:4px}
   .seg button{flex:1;border:none;background:transparent;font-family:'Nunito';font-weight:800;
     font-size:.9rem;color:#7c3aed;padding:9px 4px;border-radius:10px;cursor:pointer;transition:.15s}
   .seg button.active{background:var(--violet);color:#fff;box-shadow:0 3px 8px var(--shadow)}
-
   .btn{
     width:100%;border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;
     font-size:1.25rem;color:#fff;padding:18px;border-radius:20px;margin-top:22px;
@@ -92,30 +97,31 @@
   .btn:active{transform:translateY(4px);box-shadow:0 3px 0 #9d174d,0 6px 14px rgba(219,39,119,.3)}
   .btn.green{background:linear-gradient(150deg,var(--vert),#059669);box-shadow:0 7px 0 #047857,0 12px 24px rgba(5,150,105,.3)}
   .btn.ghost{background:#f1eafe;color:var(--violet);box-shadow:0 5px 0 #d8c7f5}
-
+  .btn.small{font-size:1rem;padding:13px;margin-top:12px}
   .hint{text-align:center;font-size:.82rem;color:#9ca3af;font-weight:700;margin-top:14px}
-
-  /* ---- écran de jeu ---- */
-  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:8px}
   .pill{font-family:'Fredoka';font-weight:600;background:#f1eafe;color:var(--violet);
-    padding:6px 14px;border-radius:999px;font-size:.9rem}
+    padding:6px 14px;border-radius:999px;font-size:.9rem;white-space:nowrap}
   .pill.score{background:var(--jaune);color:var(--violet-dark);box-shadow:0 3px 0 #d4b106}
-  .tagsubj{font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;
-    padding:5px 12px;border-radius:999px;color:#fff}
-
-  .progress{height:12px;background:#eee6fb;border-radius:999px;overflow:hidden;margin:14px 0 6px}
+  .tagsubj{font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;
+    padding:5px 10px;border-radius:999px;color:#fff;white-space:nowrap}
+  /* minuteur */
+  .timerbar{height:10px;background:#eee6fb;border-radius:999px;overflow:hidden;margin:12px 0 4px}
+  .timerbar>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#10b981,#f59e0b);width:100%;transition:width 1s linear}
+  .timerbar.warn>i{background:linear-gradient(90deg,#f59e0b,#ef4444)!important}
+  .timerbar.crit>i{background:var(--rouge)!important}
+  .timetxt{text-align:right;font-family:'Fredoka';font-weight:600;font-size:.8rem;color:#9ca3af;margin-bottom:8px}
+  .timetxt b{color:var(--rouge)}
+  .progress{height:12px;background:#eee6fb;border-radius:999px;overflow:hidden;margin:6px 0}
   .progress>i{display:block;height:100%;border-radius:999px;
-    background:linear-gradient(90deg,var(--rose),var(--orange),var(--vert));
-    width:0;transition:width .4s cubic-bezier(.4,1.3,.6,1)}
-
-  .qcount{font-size:.8rem;font-weight:800;color:#9ca3af;margin-bottom:10px}
-  .question{font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.45rem;line-height:1.25;
-    color:var(--ink);margin:6px 0 20px}
-
+    background:linear-gradient(90deg,var(--rose),var(--orange),var(--vert));width:0;transition:width .4s cubic-bezier(.4,1.3,.6,1)}
+  .qcount{font-size:.8rem;font-weight:800;color:#9ca3af;margin-bottom:6px}
+  .question{font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.4rem;line-height:1.25;
+    color:var(--ink);margin:6px 0 18px}
   .answers{display:flex;flex-direction:column;gap:12px}
   .ans{
     border:3px solid #ede9fe;background:#faf8ff;cursor:pointer;text-align:left;
-    font-family:'Nunito';font-weight:700;font-size:1.06rem;color:var(--ink);
+    font-family:'Nunito';font-weight:700;font-size:1.04rem;color:var(--ink);
     padding:16px 18px;border-radius:18px;transition:transform .1s,border-color .15s,background .15s;
     display:flex;align-items:center;gap:12px;
   }
@@ -126,54 +132,59 @@
   .ans.correct .key{background:var(--vert);color:#fff}
   .ans.wrong{border-color:var(--rouge);background:#fdeaea}
   .ans.wrong .key{background:var(--rouge);color:#fff}
-  .ans.dim{opacity:.5}
-  .ans.locked{cursor:default}
-
+  .ans.dim{opacity:.5}.ans.locked{cursor:default}
   .explain{margin-top:18px;background:#f5f0ff;border-left:5px solid var(--violet);
-    border-radius:12px;padding:14px 16px;font-size:.96rem;font-weight:600;color:#4b3a78;
-    line-height:1.45;display:none}
+    border-radius:12px;padding:14px 16px;font-size:.96rem;font-weight:600;color:#4b3a78;line-height:1.45;display:none}
   .explain.show{display:block;animation:pop .3s ease}
   .explain b{color:var(--violet-dark)}
   @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-  .next{margin-top:16px;display:none}
-  .next.show{display:block}
-
-  /* ---- écran résultat ---- */
+  .next{margin-top:16px;display:none}.next.show{display:block}
   .result{text-align:center}
   .medal{font-size:4.5rem;margin:6px 0;animation:bounce .6s ease}
   @keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
   .bigscore{font-family:'Fredoka';font-weight:700;font-size:3.4rem;color:var(--violet-dark);line-height:1}
   .bigscore small{font-size:1.4rem;color:#9ca3af}
   .verdict{font-family:'Fredoka';font-weight:500;font-size:1.3rem;color:var(--rose);margin:8px 0 4px}
-  .reslist{margin-top:18px;text-align:left;display:flex;flex-direction:column;gap:8px;max-height:230px;overflow-y:auto;padding-right:4px}
-  .resitem{background:#faf8ff;border-radius:12px;padding:10px 14px;font-size:.9rem;font-weight:700;display:flex;gap:10px;align-items:flex-start}
-  .resitem .ic{flex:0 0 auto;font-size:1.1rem}
-  .resitem.ok{border-left:4px solid var(--vert)}
-  .resitem.no{border-left:4px solid var(--rouge)}
-  .resitem em{display:block;font-weight:600;color:#6b7280;font-style:normal;font-size:.82rem;margin-top:2px}
-
+  .statline{display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .stat{background:#f5f0ff;border-radius:14px;padding:8px 14px;font-weight:800;font-size:.85rem;color:var(--violet-dark)}
+  .stat span{display:block;font-size:1.2rem;font-family:'Fredoka';font-weight:700;color:var(--violet)}
+  /* saisie pseudo */
+  .pseudo{margin-top:18px;display:flex;flex-direction:column;gap:8px;align-items:stretch}
+  .pseudo label{font-weight:800;font-size:.9rem;color:var(--violet-dark);text-align:center}
+  .pseudo input{font-family:'Nunito';font-weight:800;font-size:1.1rem;text-align:center;
+    padding:14px;border-radius:16px;border:3px solid #ede9fe;background:#faf8ff;color:var(--ink);outline:none}
+  .pseudo input:focus{border-color:var(--violet)}
+  .savedmsg{text-align:center;font-weight:800;color:var(--vert);margin-top:10px;font-size:.92rem}
+  /* classement */
+  .lb{margin-top:16px;display:flex;flex-direction:column;gap:7px;max-height:300px;overflow-y:auto;padding-right:4px}
+  .lbrow{display:flex;align-items:center;gap:10px;background:#faf8ff;border-radius:12px;padding:9px 12px;font-weight:700}
+  .lbrow .rk{font-family:'Fredoka';font-weight:700;color:#a78bda;width:26px;text-align:center;flex:0 0 auto}
+  .lbrow .nm{flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lbrow .pts{font-family:'Fredoka';font-weight:700;color:var(--violet)}
+  .lbrow .tm{font-size:.72rem;color:#9ca3af;font-weight:700;flex:0 0 auto;width:48px;text-align:right}
+  .lbrow.top1{background:linear-gradient(120deg,#fef9c3,#fde68a);border-left:4px solid var(--jaune)}
+  .lbrow.top2{background:#f1f5f9;border-left:4px solid #cbd5e1}
+  .lbrow.top3{background:#fef3e2;border-left:4px solid #fdba74}
+  .lbrow.me{outline:3px solid var(--rose);outline-offset:-1px}
+  .lbrow.me .nm{color:var(--rose)}
+  .lbempty{text-align:center;color:#9ca3af;font-weight:700;padding:18px;font-size:.9rem}
+  .lbscope{text-align:center;font-size:.72rem;font-weight:800;color:#a78bda;margin-top:8px;text-transform:uppercase;letter-spacing:.4px}
   .fade{animation:fade .35s ease}
   @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .hide{display:none!important}
-
-  /* confettis */
   .confetti{position:fixed;top:-12px;width:10px;height:14px;z-index:50;border-radius:2px;pointer-events:none}
   @media(min-width:600px){h1{font-size:2.4rem}}
 </style>
 </head>
 <body>
 <div class="bubble b1"></div><div class="bubble b2"></div><div class="bubble b3"></div>
-
 <div class="app">
-
-  <!-- ====== ACCUEIL ====== -->
   <section id="home" class="card fade">
-    <span class="logo">🎓 Brevet 3ᵉ</span>
+    <span class="logo">🎓 Brevet 3e</span>
     <h1>Quiz du Brevet</h1>
-    <div class="sub">Révise en t'amusant</div>
-    <p class="lead">Choisis tes matières, lance le quiz et grimpe au sommet du score&nbsp;! 🚀</p>
-
+    <div class="sub">400 questions pour réviser</div>
+    <div class="section-title">⏳ J avant les épreuves <span class="mini" id="cdYear"></span></div>
+    <div class="countdowns" id="countdowns"></div>
     <div class="section-title">📚 Matières</div>
     <div class="subjects" id="subjects">
       <button class="subj c-hist" data-key="hist"><span class="check">✓</span><span class="emo">🏛️</span>Histoire-Géo-EMC<span class="cnt"></span></button>
@@ -181,26 +192,26 @@
       <button class="subj c-math" data-key="math"><span class="check">✓</span><span class="emo">📐</span>Mathématiques<span class="cnt"></span></button>
       <button class="subj c-sci"  data-key="sci"><span class="check">✓</span><span class="emo">🔬</span>Sciences<span class="cnt"></span></button>
     </div>
-
     <div class="section-title">🎯 Nombre de questions</div>
     <div class="seg" id="lenSeg">
-      <button data-len="5">5</button>
       <button data-len="10" class="active">10</button>
       <button data-len="20">20</button>
+      <button data-len="40">40</button>
       <button data-len="0">Max</button>
     </div>
-
     <button class="btn" id="startBtn">▶ Commencer</button>
+    <button class="btn ghost small" id="seeLbBtn">🏆 Voir le classement</button>
     <p class="hint">Astuce iPhone : Partager → « Sur l'écran d'accueil » 📲</p>
   </section>
 
-  <!-- ====== JEU ====== -->
   <section id="game" class="card hide">
     <div class="topbar">
       <span class="pill" id="qIndex">1 / 10</span>
       <span class="tagsubj" id="qSubject">Matière</span>
       <span class="pill score" id="scorePill">⭐ 0</span>
     </div>
+    <div class="timerbar" id="timerbar"><i id="timerfill"></i></div>
+    <div class="timetxt" id="timetxt">15 s</div>
     <div class="progress"><i id="bar"></i></div>
     <div class="qcount" id="streakTxt"></div>
     <div class="question" id="qText">…</div>
@@ -209,243 +220,317 @@
     <div class="next"><button class="btn green" id="nextBtn">Suivant →</button></div>
   </section>
 
-  <!-- ====== RÉSULTAT ====== -->
   <section id="result" class="card result hide">
     <div class="medal" id="medal">🏆</div>
-    <div class="bigscore"><span id="finalScore">0</span><small>/<span id="finalTotal">0</span></small></div>
+    <div class="bigscore"><span id="finalScore">0</span><small> pts</small></div>
     <div class="verdict" id="verdict">Bravo !</div>
-    <p class="lead" id="resMsg" style="text-align:center"></p>
-    <div class="reslist" id="reslist"></div>
+    <div class="statline">
+      <div class="stat" id="stCorrect">0/0<span>bonnes</span></div>
+      <div class="stat" id="stTime">0s<span>temps moyen</span></div>
+      <div class="stat" id="stBonus">0<span>bonus vitesse</span></div>
+    </div>
+    <div class="pseudo" id="pseudoBox">
+      <label for="pseudoIn">🏅 Entre ton pseudo pour le classement</label>
+      <input id="pseudoIn" maxlength="14" placeholder="Ton pseudo" autocomplete="off">
+      <button class="btn green small" id="saveScoreBtn">Enregistrer mon score</button>
+    </div>
+    <div class="savedmsg hide" id="savedMsg"></div>
+    <button class="btn" id="showLbBtn">🏆 Voir le classement</button>
     <button class="btn green" id="againBtn">🔁 Rejouer</button>
     <button class="btn ghost" id="homeBtn">🏠 Accueil</button>
   </section>
 
+  <section id="leaderboard" class="card hide">
+    <span class="logo">🏆 Top 20</span>
+    <h1>Classement</h1>
+    <div class="sub">Meilleurs scores</div>
+    <div class="lb" id="lbList"></div>
+    <div class="lbscope" id="lbScope"></div>
+    <button class="btn green" id="lbAgainBtn">🔁 Nouvelle partie</button>
+    <button class="btn ghost" id="lbHomeBtn">🏠 Accueil</button>
+  </section>
 </div>
-
 <script>
-/* ============================================================
-   BANQUE DE QUESTIONS
-   Chaque question : { q, a:[...], correct:index, exp }
-   ============================================================ */
-const BANK = {
-  hist: { label:"Histoire-Géo-EMC", color:"#2563eb", questions:[
-    {q:"Quand se déroule la Première Guerre mondiale ?",a:["1914-1918","1918-1924","1939-1945","1900-1910"],correct:0,exp:"La Grande Guerre commence en 1914 et se termine par l'armistice du 11 novembre 1918."},
-    {q:"Quel attentat déclenche la Première Guerre mondiale ?",a:["L'attentat de Sarajevo","La prise de la Bastille","L'attentat de Marseille","Le coup de Prague"],correct:0,exp:"L'assassinat de l'archiduc François-Ferdinand à Sarajevo le 28 juin 1914 met le feu aux poudres."},
-    {q:"Qui dirige l'URSS pendant l'entre-deux-guerres ?",a:["Staline","Lénine","Trotski","Gorbatchev"],correct:0,exp:"Staline dirige l'URSS de 1924 à 1953 dans un régime totalitaire communiste."},
-    {q:"En quelle année Hitler arrive-t-il au pouvoir ?",a:["1933","1929","1939","1925"],correct:0,exp:"Hitler devient chancelier de l'Allemagne en janvier 1933."},
-    {q:"Comment nomme-t-on le génocide des Juifs par les nazis ?",a:["La Shoah","La Terreur","Le Goulag","La Diaspora"],correct:0,exp:"La Shoah a causé la mort d'environ 6 millions de Juifs d'Europe."},
-    {q:"Quelle est la date du débarquement de Normandie ?",a:["6 juin 1944","8 mai 1945","11 nov. 1918","1er sept. 1939"],correct:0,exp:"Le D-Day du 6 juin 1944 ouvre un nouveau front à l'Ouest."},
-    {q:"Qui lance l'appel du 18 juin 1940 ?",a:["Charles de Gaulle","Philippe Pétain","Winston Churchill","Jean Moulin"],correct:0,exp:"Depuis Londres, de Gaulle appelle à poursuivre le combat : c'est l'acte fondateur de la France libre."},
-    {q:"Que sépare le mur de Berlin (1961-1989) ?",a:["Berlin-Est et Berlin-Ouest","La France et l'Allemagne","L'Europe et l'Asie","Le Nord et le Sud"],correct:0,exp:"Symbole de la guerre froide, il sépare la ville jusqu'à sa chute le 9 novembre 1989."},
-    {q:"En quelle année l'Algérie devient-elle indépendante ?",a:["1962","1945","1958","1975"],correct:0,exp:"Les accords d'Évian de 1962 mettent fin à la guerre d'Algérie."},
-    {q:"Qui fonde la Ve République en 1958 ?",a:["Charles de Gaulle","François Mitterrand","Georges Pompidou","Léon Blum"],correct:0,exp:"De Gaulle fonde la Ve République, avec un pouvoir exécutif renforcé."},
-    {q:"En quelle année les femmes obtiennent-elles le droit de vote en France ?",a:["1944","1789","1900","1975"],correct:0,exp:"Le droit de vote des femmes est accordé en 1944, premier vote en 1945."},
-    {q:"Que garantit la loi de 1905 ?",a:["La laïcité","Le droit de grève","La liberté de la presse","Les congés payés"],correct:0,exp:"La loi de 1905 sépare les Églises et l'État : c'est le fondement de la laïcité."},
-    {q:"Quelle est la devise de la République française ?",a:["Liberté, Égalité, Fraternité","Un pour tous, tous pour un","Travail, Famille, Patrie","Paix et Justice"],correct:0,exp:"Cette devise héritée de la Révolution figure sur les frontons des bâtiments publics."},
-    {q:"Quel pourcentage des Français vit dans une aire urbaine ?",a:["Plus de 80 %","Environ 30 %","La moitié","20 %"],correct:0,exp:"Plus de 80 % de la population vit dans une aire urbaine : la France est très urbanisée."},
-    {q:"Combien d'États membres compte l'Union européenne ?",a:["27","15","12","50"],correct:0,exp:"Depuis le Brexit (2020), l'UE compte 27 États membres."},
-    {q:"Quelle est la monnaie unique de la zone euro (depuis 2002) ?",a:["L'euro","Le franc","Le mark","La livre"],correct:0,exp:"L'euro a été mis en circulation pour les particuliers en 2002."},
-    {q:"Comment appelle-t-on la concentration des activités dans les grandes villes ?",a:["La métropolisation","La désertification","La périurbanisation","La littoralisation"],correct:0,exp:"La métropolisation concentre population, activités et pouvoirs dans les métropoles."},
-    {q:"Qu'est-ce qu'un DROM ?",a:["Un département et région d'outre-mer","Une organisation européenne","Un type de traité","Une zone industrielle"],correct:0,exp:"Guadeloupe, Martinique, Guyane, La Réunion et Mayotte sont des DROM."},
-  ]},
-  fr: { label:"Français", color:"#db2777", questions:[
-    {q:"Quel est le sujet dans « Les élèves révisent le brevet » ?",a:["Les élèves","révisent","le brevet","brevet"],correct:0,exp:"Le sujet fait l'action : ce sont « les élèves » qui révisent."},
-    {q:"Quelle est la nature du mot « rapidement » ?",a:["Adverbe","Adjectif","Nom","Verbe"],correct:0,exp:"« Rapidement » modifie un verbe : c'est un adverbe (souvent en -ment)."},
-    {q:"À quel temps est « je mangeais » ?",a:["Imparfait","Passé composé","Futur","Présent"],correct:0,exp:"La terminaison -ais au singulier est caractéristique de l'imparfait."},
-    {q:"Quelle figure de style est « Cette femme est un lion » ?",a:["Une métaphore","Une comparaison","Une litote","Une hyperbole"],correct:0,exp:"La métaphore rapproche deux éléments sans mot de comparaison (contrairement à la comparaison avec « comme »)."},
-    {q:"Quelle figure dans « Il pleut des cordes » exagère ?",a:["L'hyperbole","La litote","L'euphémisme","La métonymie"],correct:0,exp:"L'hyperbole exagère pour marquer les esprits."},
-    {q:"Quel est le mode du verbe dans « Qu'il vienne ! » ?",a:["Le subjonctif","L'indicatif","L'impératif","Le conditionnel"],correct:0,exp:"« Qu'il vienne » exprime un ordre/souhait : c'est le subjonctif présent."},
-    {q:"Comment s'appelle celui qui raconte l'histoire ?",a:["Le narrateur","L'auteur","Le personnage","L'éditeur"],correct:0,exp:"Le narrateur est la voix qui raconte ; il ne se confond pas toujours avec l'auteur."},
-    {q:"Quel est le féminin de l'adjectif « heureux » ?",a:["heureuse","heureux","heureuxe","heureuse"],correct:0,exp:"Les adjectifs en -eux font leur féminin en -euse."},
-    {q:"« Une comparaison » contient toujours :",a:["un outil comme « comme »","un verbe d'action","un point d'exclamation","un nom propre"],correct:0,exp:"La comparaison utilise un mot-outil : comme, tel, semblable à, pareil à…"},
-    {q:"Quelle est la fonction de « rouge » dans « la voiture rouge » ?",a:["Épithète","Attribut","Complément d'objet","Sujet"],correct:0,exp:"L'adjectif placé directement à côté du nom est épithète."},
-    {q:"Dans un récit, le « discours direct » se reconnaît à :",a:["des guillemets et tirets","l'absence de ponctuation","l'emploi du futur","la 3e personne uniquement"],correct:0,exp:"Le discours direct rapporte les paroles entre guillemets, avec tirets dans le dialogue."},
-    {q:"Quel est le participe passé de « prendre » ?",a:["pris","prendu","prit","prener"],correct:0,exp:"« J'ai pris » : le participe passé de prendre est « pris »."},
-    {q:"« Ne… que » exprime :",a:["la restriction","la négation totale","l'interrogation","l'exclamation"],correct:0,exp:"« Il ne mange que des fruits » = il mange seulement des fruits : c'est une restriction."},
-    {q:"Quel registre cherche à faire rire ?",a:["Le comique","Le tragique","Le pathétique","Le lyrique"],correct:0,exp:"Le registre comique provoque le rire (jeux de mots, situations, etc.)."},
-  ]},
-  math: { label:"Mathématiques", color:"#059669", questions:[
-    {q:"Combien font 15 % de 200 ?",a:["30","15","45","20"],correct:0,exp:"15 % de 200 = 0,15 × 200 = 30."},
-    {q:"Quel est le PGCD de 12 et 18 ?",a:["6","2","3","36"],correct:0,exp:"Diviseurs communs : 1, 2, 3, 6. Le plus grand est 6."},
-    {q:"Développe (x + 3)(x + 2).",a:["x² + 5x + 6","x² + 6x + 5","x² + 6","2x + 5"],correct:0,exp:"Double distributivité : x² + 2x + 3x + 6 = x² + 5x + 6."},
-    {q:"Dans un triangle rectangle, quel théorème relie les côtés ?",a:["Pythagore","Thalès","Al-Kashi","Descartes"],correct:0,exp:"Le théorème de Pythagore : le carré de l'hypoténuse = somme des carrés des deux autres côtés."},
-    {q:"Quelle est l'aire d'un disque de rayon 5 (en fonction de π) ?",a:["25π","10π","5π","100π"],correct:0,exp:"Aire = π × r² = π × 5² = 25π."},
-    {q:"Résous : 2x + 4 = 10. Que vaut x ?",a:["3","2","6","7"],correct:0,exp:"2x = 6 donc x = 3."},
-    {q:"Quelle est la probabilité d'obtenir un 6 avec un dé à 6 faces ?",a:["1/6","1/3","1/2","6"],correct:0,exp:"Un cas favorable sur six possibles : 1/6."},
-    {q:"Combien font (-3) × (-4) ?",a:["12","-12","-7","7"],correct:0,exp:"Le produit de deux nombres négatifs est positif : 12."},
-    {q:"Quelle est la fraction simplifiée de 8/12 ?",a:["2/3","4/6","3/4","8/12"],correct:0,exp:"On divise par 4 : 8/12 = 2/3."},
-    {q:"Une fonction linéaire a pour forme :",a:["f(x) = ax","f(x) = ax + b","f(x) = x²","f(x) = b"],correct:0,exp:"La fonction linéaire est de la forme f(x) = ax (proportionnalité)."},
-    {q:"Combien de degrés mesure la somme des angles d'un triangle ?",a:["180°","360°","90°","270°"],correct:0,exp:"La somme des angles d'un triangle vaut toujours 180°."},
-    {q:"Quel est le volume d'un cube d'arête 3 cm ?",a:["27 cm³","9 cm³","18 cm³","12 cm³"],correct:0,exp:"Volume du cube = arête³ = 3³ = 27 cm³."},
-    {q:"Quelle est la racine carrée de 49 ?",a:["7","24,5","9","6"],correct:0,exp:"7 × 7 = 49, donc √49 = 7."},
-    {q:"Le théorème de Thalès concerne surtout :",a:["des droites parallèles","les angles droits","les probabilités","les pourcentages"],correct:0,exp:"Thalès s'utilise dans une configuration de droites parallèles coupant deux sécantes."},
-  ]},
-  sci: { label:"Sciences", color:"#d97706", questions:[
-    {q:"Quelle est la formule chimique de l'eau ?",a:["H₂O","CO₂","O₂","H₂O₂"],correct:0,exp:"L'eau est composée de 2 atomes d'hydrogène et 1 d'oxygène : H₂O."},
-    {q:"Quel organe pompe le sang dans le corps ?",a:["Le cœur","Le foie","Les poumons","Le cerveau"],correct:0,exp:"Le cœur est un muscle qui propulse le sang dans tout l'organisme."},
-    {q:"Quelle est l'unité de mesure de la force ?",a:["Le newton (N)","Le watt (W)","Le joule (J)","Le volt (V)"],correct:0,exp:"La force se mesure en newtons (N), en hommage à Isaac Newton."},
-    {q:"Quel gaz les plantes absorbent-elles pour la photosynthèse ?",a:["Le dioxyde de carbone","Le dioxygène","L'azote","L'hydrogène"],correct:0,exp:"Les plantes absorbent le CO₂ et rejettent du dioxygène (O₂)."},
-    {q:"Que mesure-t-on en volts ?",a:["La tension électrique","L'intensité","La résistance","La puissance"],correct:0,exp:"La tension électrique se mesure en volts (V) avec un voltmètre."},
-    {q:"De quoi sont composées les molécules ?",a:["D'atomes","De cellules","D'organes","De planètes"],correct:0,exp:"Les molécules sont des assemblages d'atomes liés entre eux."},
-    {q:"Quelle planète est la plus proche du Soleil ?",a:["Mercure","Vénus","La Terre","Mars"],correct:0,exp:"Mercure est la première planète du système solaire."},
-    {q:"Quel est le rôle des globules rouges ?",a:["Transporter le dioxygène","Combattre les microbes","Digérer les aliments","Produire l'énergie"],correct:0,exp:"Grâce à l'hémoglobine, les globules rouges transportent le dioxygène dans le sang."},
-    {q:"Quelle unité mesure l'intensité d'un courant électrique ?",a:["L'ampère (A)","Le volt (V)","Le watt (W)","L'ohm (Ω)"],correct:0,exp:"L'intensité se mesure en ampères (A) avec un ampèremètre branché en série."},
-    {q:"L'eau bout à quelle température (à pression normale) ?",a:["100 °C","0 °C","50 °C","212 °C"],correct:0,exp:"Au niveau de la mer, l'eau bout à 100 °C et gèle à 0 °C."},
-    {q:"Comment appelle-t-on le passage de l'état liquide à gazeux ?",a:["La vaporisation","La fusion","La solidification","La condensation"],correct:0,exp:"La vaporisation (ébullition ou évaporation) fait passer un liquide à l'état gazeux."},
-    {q:"Quelle cellule transmet l'information dans le système nerveux ?",a:["Le neurone","Le globule blanc","L'ovule","La plaquette"],correct:0,exp:"Le neurone est la cellule de base du système nerveux, qui transmet les messages."},
-    {q:"Quelle est la principale source d'énergie renouvelable du Soleil ?",a:["L'énergie solaire","Le charbon","Le pétrole","Le gaz naturel"],correct:0,exp:"L'énergie solaire est renouvelable, contrairement aux énergies fossiles."},
-  ]},
-};
+const META={hist:{label:"Histoire-Géo-EMC",color:"#2563eb"},fr:{label:"Français",color:"#db2777"},math:{label:"Mathématiques",color:"#059669"},sci:{label:"Sciences",color:"#d97706"}};
+const BANK={"hist":[{"q":"Quand se déroule la Première Guerre mondiale ?","a":["1914-1918","1918-1924","1939-1945","1900-1910"],"correct":0,"exp":"La Grande Guerre commence en 1914 et s'achève le 11 novembre 1918."},{"q":"Quel attentat déclenche la Première Guerre mondiale ?","a":["L'attentat de Sarajevo","La prise de la Bastille","L'incendie du Reichstag","Le coup de Prague"],"correct":0,"exp":"L'assassinat de l'archiduc François-Ferdinand à Sarajevo (28 juin 1914) met le feu aux poudres."},{"q":"Comment appelle-t-on les soldats français de 14-18 ?","a":["Les poilus","Les sans-culottes","Les zouaves","Les hussards"],"correct":0,"exp":"Les « poilus » désignent les combattants français des tranchées."},{"q":"Quelle grande bataille de 1916 symbolise la violence de la guerre ?","a":["Verdun","Waterloo","Austerlitz","Marignan"],"correct":0,"exp":"La bataille de Verdun (1916) est emblématique de la guerre de position."},{"q":"Que signifie « guerre totale » ?","a":["Toutes les ressources du pays sont mobilisées","Une guerre sur tous les continents","Une guerre sans armistice","Une guerre nucléaire"],"correct":0,"exp":"La guerre totale mobilise soldats, civils, économie et idéologie."},{"q":"Quel génocide a lieu pendant la Première Guerre mondiale ?","a":["Le génocide arménien","La Shoah","Le génocide rwandais","Le génocide cambodgien"],"correct":0,"exp":"Le génocide des Arméniens est perpétré par l'Empire ottoman en 1915-1916."},{"q":"Quand est signé l'armistice de la Première Guerre mondiale ?","a":["11 novembre 1918","8 mai 1945","14 juillet 1918","1er septembre 1939"],"correct":0,"exp":"L'armistice est signé le 11 novembre 1918 à Rethondes."},{"q":"Quel traité met fin à la Première Guerre mondiale en 1919 ?","a":["Le traité de Versailles","Le traité de Rome","Le traité de Maastricht","Le traité de Tordesillas"],"correct":0,"exp":"Le traité de Versailles (1919) impose de lourdes sanctions à l'Allemagne."},{"q":"Quel événement majeur a lieu en Russie en 1917 ?","a":["Les révolutions russes","La chute du Mur","La prise de la Bastille","La Restauration"],"correct":0,"exp":"En 1917, les révolutions russes renversent le tsar puis portent les bolcheviks au pouvoir."},{"q":"Quel pays entre en guerre aux côtés des Alliés en 1917 ?","a":["Les États-Unis","Le Japon","Le Brésil","L'Espagne"],"correct":0,"exp":"L'entrée en guerre des États-Unis en 1917 renforce le camp allié."},{"q":"Comment appelle-t-on la guerre menée depuis les tranchées ?","a":["La guerre de position","La guerre éclair","La guerre froide","La guerre de mouvement"],"correct":0,"exp":"À partir de 1915, le front se fige : c'est la guerre de position (tranchées)."},{"q":"Le traité de Versailles est perçu par les Allemands comme :","a":["un Diktat","une victoire","un cadeau","une alliance"],"correct":0,"exp":"Les Allemands le perçoivent comme un « Diktat » humiliant, source de rancœurs."},{"q":"Qui dirige l'URSS dans l'entre-deux-guerres ?","a":["Staline","Lénine","Gorbatchev","Eltsine"],"correct":0,"exp":"Staline dirige l'URSS de 1924 à 1953."},{"q":"En quelle année éclate la crise économique mondiale ?","a":["1929","1917","1936","1945"],"correct":0,"exp":"Le krach de Wall Street d'octobre 1929 déclenche une crise mondiale."},{"q":"Où débute la crise économique de 1929 ?","a":["Aux États-Unis","En Allemagne","En URSS","Au Japon"],"correct":0,"exp":"La crise part du krach boursier de Wall Street, aux États-Unis."},{"q":"En quelle année Hitler arrive-t-il au pouvoir ?","a":["1933","1929","1939","1925"],"correct":0,"exp":"Hitler devient chancelier de l'Allemagne en janvier 1933."},{"q":"Quel régime Mussolini installe-t-il en Italie ?","a":["Le fascisme","Le communisme","La démocratie","La monarchie absolue"],"correct":0,"exp":"Mussolini instaure un régime fasciste en Italie."},{"q":"Quel est le point commun des régimes totalitaires ?","a":["Un parti unique et la suppression des libertés","Le multipartisme","La liberté de la presse","Des élections libres"],"correct":0,"exp":"Parti unique, culte du chef, propagande, terreur : ce sont des traits communs."},{"q":"Sur quoi repose particulièrement le nazisme ?","a":["Le racisme et l'antisémitisme","La tolérance","Le libéralisme","Le pacifisme"],"correct":0,"exp":"Le nazisme est fondé sur le racisme et l'antisémitisme."},{"q":"Que sont les lois de Nuremberg (1935) ?","a":["Des lois antisémites","Des lois sociales","Des lois écologiques","Des lois électorales"],"correct":0,"exp":"Les lois de Nuremberg privent les Juifs de leurs droits en Allemagne."},{"q":"Qu'est-ce que la propagande ?","a":["Diffuser des idées pour influencer l'opinion","Un impôt","Une élection","Un syndicat"],"correct":0,"exp":"La propagande sert à contrôler et orienter l'opinion publique."},{"q":"Quel mouvement remporte les élections en France en 1936 ?","a":["Le Front populaire","Le RPR","La SFIO seule","Les royalistes"],"correct":0,"exp":"Le Front populaire arrive au pouvoir en 1936."},{"q":"Quelle réforme sociale date du Front populaire ?","a":["Les congés payés","La retraite à 60 ans","Le RSA","La Sécurité sociale"],"correct":0,"exp":"Le Front populaire instaure les congés payés et la semaine de 40 heures."},{"q":"Comment appelle-t-on la glorification excessive d'un chef ?","a":["Le culte de la personnalité","La démocratie","Le fédéralisme","Le parlementarisme"],"correct":0,"exp":"Le culte de la personnalité est typique des régimes totalitaires."},{"q":"La police politique de l'URSS servait à :","a":["faire régner la terreur","organiser des élections","gérer l'économie","protéger les libertés"],"correct":0,"exp":"La police politique surveille la population et réprime les opposants."},{"q":"Quel terme désigne un système économique planifié par l'État ?","a":["L'économie planifiée","Le libéralisme","Le capitalisme","Le marché libre"],"correct":0,"exp":"En URSS, l'économie est entièrement planifiée par l'État."},{"q":"Quand se déroule la Seconde Guerre mondiale ?","a":["1939-1945","1914-1918","1945-1989","1936-1940"],"correct":0,"exp":"Elle commence en 1939 et se termine en 1945."},{"q":"Quel événement marque le début de la Seconde Guerre mondiale ?","a":["L'invasion de la Pologne","Pearl Harbor","Le débarquement","La chute de Berlin"],"correct":0,"exp":"L'invasion de la Pologne par l'Allemagne (1er sept. 1939) déclenche la guerre."},{"q":"Qui lance l'appel du 18 juin 1940 ?","a":["Charles de Gaulle","Philippe Pétain","Jean Moulin","Léon Blum"],"correct":0,"exp":"Depuis Londres, de Gaulle appelle à poursuivre le combat."},{"q":"Quel régime collabore avec l'Allemagne en France ?","a":["Le régime de Vichy","La IIIe République","La Commune","La Ve République"],"correct":0,"exp":"Le régime de Vichy, dirigé par Pétain, collabore avec l'occupant."},{"q":"Comment nomme-t-on le génocide des Juifs par les nazis ?","a":["La Shoah","La Terreur","Le Goulag","La Diaspora"],"correct":0,"exp":"La Shoah a causé la mort d'environ 6 millions de Juifs."},{"q":"Qu'est-ce qu'une guerre d'anéantissement ?","a":["Détruire totalement l'ennemi, civils compris","Une guerre courte","Une guerre navale","Une guerre coloniale"],"correct":0,"exp":"La Seconde Guerre mondiale est une guerre d'anéantissement."},{"q":"Quelle est la date du débarquement de Normandie ?","a":["6 juin 1944","8 mai 1945","11 nov. 1918","1er sept. 1939"],"correct":0,"exp":"Le D-Day du 6 juin 1944 ouvre un front à l'Ouest."},{"q":"Quelle bataille marque un tournant à l'Est (1942-1943) ?","a":["Stalingrad","Verdun","Marignan","Trafalgar"],"correct":0,"exp":"La défaite allemande à Stalingrad est un tournant majeur."},{"q":"Quand l'Allemagne nazie capitule-t-elle ?","a":["8 mai 1945","11 nov. 1918","6 juin 1944","2 sept. 1945"],"correct":0,"exp":"La capitulation allemande a lieu le 8 mai 1945."},{"q":"Quelles villes japonaises subissent la bombe atomique ?","a":["Hiroshima et Nagasaki","Tokyo et Kyoto","Osaka et Kobe","Nagoya et Sapporo"],"correct":0,"exp":"Les bombes atomiques frappent Hiroshima et Nagasaki en août 1945."},{"q":"Qu'organise la conférence de Wannsee (1942) ?","a":["La « solution finale »","La paix","Le partage de l'Europe","Le plan Marshall"],"correct":0,"exp":"La conférence de Wannsee planifie l'extermination des Juifs d'Europe."},{"q":"Qu'est-ce que la Résistance ?","a":["Les actions clandestines contre l'occupant","L'armée allemande","Le gouvernement de Vichy","Un parti politique"],"correct":0,"exp":"La Résistance regroupe les actions contre l'occupant et Vichy."},{"q":"Qui unifie la Résistance intérieure française ?","a":["Jean Moulin","Pétain","Laval","Daladier"],"correct":0,"exp":"Jean Moulin unifie la Résistance au sein du CNR."},{"q":"Un camp d'extermination nazi célèbre est :","a":["Auschwitz-Birkenau","Verdun","Vichy","Yalta"],"correct":0,"exp":"Auschwitz-Birkenau est le plus grand centre d'extermination nazi."},{"q":"Que désigne la « collaboration » ?","a":["La coopération de Vichy avec les nazis","La résistance armée","Une alliance militaire alliée","Un traité de paix"],"correct":0,"exp":"La collaboration est la coopération du régime de Vichy avec l'Allemagne."},{"q":"Quelle attaque fait entrer les États-Unis en guerre en 1941 ?","a":["Pearl Harbor","Le débarquement","Stalingrad","Dunkerque"],"correct":0,"exp":"L'attaque japonaise de Pearl Harbor provoque l'entrée en guerre des USA."},{"q":"Que désigne la guerre froide ?","a":["L'affrontement Est-Ouest sans guerre directe","Une guerre en Arctique","Une guerre de tranchées","Une guerre coloniale"],"correct":0,"exp":"La guerre froide oppose les blocs américain et soviétique sans conflit direct."},{"q":"Quelles sont les deux superpuissances de la guerre froide ?","a":["États-Unis et URSS","France et Allemagne","Chine et Japon","Royaume-Uni et Italie"],"correct":0,"exp":"Le monde devient bipolaire autour des États-Unis et de l'URSS."},{"q":"Que signifie un monde « bipolaire » ?","a":["Dominé par deux puissances rivales","Sans frontières","Avec un seul pays dominant","Divisé en trois blocs"],"correct":0,"exp":"Bipolaire = dominé par deux blocs rivaux."},{"q":"Quelle ville est le symbole de la guerre froide ?","a":["Berlin","Paris","Rome","Madrid"],"correct":0,"exp":"Berlin, divisée, est le symbole de l'affrontement Est-Ouest."},{"q":"En quelle année le mur de Berlin est-il construit ?","a":["1961","1945","1989","1991"],"correct":0,"exp":"Le mur de Berlin est construit en 1961."},{"q":"Quand le mur de Berlin tombe-t-il ?","a":["9 novembre 1989","8 mai 1945","1961","1991"],"correct":0,"exp":"La chute du mur de Berlin a lieu le 9 novembre 1989."},{"q":"En quelle année l'URSS disparaît-elle ?","a":["1991","1989","1945","1962"],"correct":0,"exp":"L'URSS disparaît en 1991, mettant fin à la guerre froide."},{"q":"Que désignait le « rideau de fer » ?","a":["La frontière entre l'Europe de l'Ouest et de l'Est","Une fortification militaire","Un traité","Une route commerciale"],"correct":0,"exp":"Le « rideau de fer » séparait symboliquement les deux Europe."},{"q":"Le bloc de l'Ouest est :","a":["capitaliste et démocratique","communiste","monarchique","fasciste"],"correct":0,"exp":"Le bloc de l'Ouest, mené par les USA, est capitaliste et démocratique."},{"q":"Le bloc de l'Est est :","a":["communiste","capitaliste","libéral","fédéral"],"correct":0,"exp":"Le bloc de l'Est, mené par l'URSS, est communiste."},{"q":"Le blocus de Berlin a lieu en :","a":["1948-1949","1961","1989","1991"],"correct":0,"exp":"Le blocus de Berlin par l'URSS a lieu en 1948-1949."},{"q":"Un « bloc » désigne :","a":["un ensemble de pays alliés à une superpuissance","une ville fortifiée","une arme","un traité commercial"],"correct":0,"exp":"Un bloc regroupe des pays alliés autour d'une superpuissance."},{"q":"Qu'est-ce que la décolonisation ?","a":["L'accès à l'indépendance des colonies","La conquête de colonies","Une alliance militaire","Un type d'économie"],"correct":0,"exp":"La décolonisation est le processus d'indépendance des colonies."},{"q":"En quelle année l'Inde devient-elle indépendante ?","a":["1947","1962","1930","1989"],"correct":0,"exp":"L'Inde accède à l'indépendance en 1947."},{"q":"Quelle guerre d'indépendance marque la France (1954-1962) ?","a":["La guerre d'Algérie","La guerre du Vietnam","La guerre de Corée","La guerre des Boers"],"correct":0,"exp":"La guerre d'Algérie marque durablement la société française."},{"q":"En quelle année l'Algérie devient-elle indépendante ?","a":["1962","1945","1958","1975"],"correct":0,"exp":"Les accords d'Évian (1962) mettent fin à la guerre d'Algérie."},{"q":"Que désigne le « tiers-monde » ?","a":["Les pays pauvres issus de la décolonisation","Les pays riches","Les pays communistes","Les pays neutres"],"correct":0,"exp":"Le tiers-monde regroupe les pays pauvres issus de la décolonisation."},{"q":"Quelle conférence réunit les pays décolonisés en 1955 ?","a":["Bandung","Yalta","Versailles","Munich"],"correct":0,"exp":"La conférence de Bandung (1955) réunit des pays d'Asie et d'Afrique."},{"q":"Qu'est-ce qu'une colonie ?","a":["Un territoire dominé par une puissance étrangère","Un pays indépendant","Une alliance","Une région autonome"],"correct":0,"exp":"Une colonie est administrée par une puissance étrangère."},{"q":"La décolonisation se fait surtout après :","a":["1945","1789","1914","1991"],"correct":0,"exp":"La décolonisation s'accélère après la Seconde Guerre mondiale."},{"q":"En quelle année les femmes obtiennent-elles le droit de vote en France ?","a":["1944","1789","1900","1975"],"correct":0,"exp":"Le droit de vote des femmes est accordé en 1944."},{"q":"Quelle institution sociale est créée en 1945 ?","a":["La Sécurité sociale","Le RSA","Pôle emploi","La CAF"],"correct":0,"exp":"La Sécurité sociale est créée en 1945."},{"q":"En quelle année la Ve République est-elle fondée ?","a":["1958","1944","1962","1981"],"correct":0,"exp":"La Ve République est fondée en 1958 par de Gaulle."},{"q":"Qui fonde la Ve République ?","a":["Charles de Gaulle","François Mitterrand","Georges Pompidou","Jacques Chirac"],"correct":0,"exp":"De Gaulle fonde la Ve République en 1958."},{"q":"Depuis 1962, le président est élu :","a":["au suffrage universel direct","par le Parlement","par les maires","à vie"],"correct":0,"exp":"Depuis 1962, le président est élu au suffrage universel direct."},{"q":"Comment appelle-t-on la période 1945-1975 de forte croissance ?","a":["Les Trente Glorieuses","La Belle Époque","Les Années folles","La Restauration"],"correct":0,"exp":"Les Trente Glorieuses désignent une forte croissance économique."},{"q":"Que dépénalise la loi Veil de 1975 ?","a":["L'IVG (l'avortement)","La peine de mort","Le divorce","Le travail des enfants"],"correct":0,"exp":"La loi Veil (1975) dépénalise l'interruption volontaire de grossesse."},{"q":"Quand la peine de mort est-elle abolie en France ?","a":["1981","1945","1958","1975"],"correct":0,"exp":"La peine de mort est abolie en France en 1981."},{"q":"Qu'est-ce qu'une cohabitation ?","a":["Président et Premier ministre de bords opposés","Deux présidents","Une coalition de gauche","Un référendum"],"correct":0,"exp":"La cohabitation : président et Premier ministre de camps politiques opposés."},{"q":"Quel programme inspire les réformes de la Libération ?","a":["Le programme du CNR","Le plan Marshall","Le traité de Rome","Les accords d'Évian"],"correct":0,"exp":"Le programme du Conseil national de la Résistance inspire de grandes réformes."},{"q":"La République française est notamment :","a":["laïque","monarchique","fédérale","théocratique"],"correct":0,"exp":"La République est indivisible, laïque, démocratique et sociale."},{"q":"Quelle organisation internationale est créée en 1945 ?","a":["L'ONU","L'UE","L'OTAN","Le FMI"],"correct":0,"exp":"L'Organisation des Nations unies (ONU) est créée en 1945."},{"q":"Quel pourcentage de Français vit dans une aire urbaine ?","a":["Plus de 80 %","Environ 30 %","La moitié","20 %"],"correct":0,"exp":"Plus de 80 % des Français vivent dans une aire urbaine."},{"q":"Qu'est-ce que la périurbanisation ?","a":["L'extension des villes en périphérie","Le déclin des villes","La désertification","La métropolisation"],"correct":0,"exp":"La périurbanisation est l'extension de l'urbanisation autour des villes."},{"q":"Qu'est-ce que la métropolisation ?","a":["La concentration des activités dans les grandes villes","La fuite des villes","L'agriculture intensive","Le tourisme rural"],"correct":0,"exp":"La métropolisation concentre population et activités dans les métropoles."},{"q":"Une aire urbaine comprend une ville-centre, sa banlieue et :","a":["sa couronne périurbaine","une zone agricole isolée","un désert","une autre métropole"],"correct":0,"exp":"L'aire urbaine = ville-centre + banlieue + couronne périurbaine."},{"q":"Quelle est la plus grande métropole française ?","a":["Paris","Lyon","Marseille","Lille"],"correct":0,"exp":"Paris est de loin la plus grande métropole française."},{"q":"Les déplacements quotidiens domicile-travail sont appelés :","a":["migrations pendulaires","exode rural","émigration","transhumance"],"correct":0,"exp":"Les migrations pendulaires sont les trajets quotidiens domicile-travail."},{"q":"Quels sont les trois grands types d'espaces productifs ?","a":["Agricoles, industriels, de services","Urbains, ruraux, marins","Riches, pauvres, moyens","Nord, sud, est"],"correct":0,"exp":"On distingue les espaces agricoles, industriels et de services."},{"q":"La France est la 1ʳᵉ destination mondiale pour :","a":["le tourisme","l'industrie automobile","l'extraction de pétrole","la sidérurgie"],"correct":0,"exp":"La France est la première destination touristique mondiale."},{"q":"Qu'est-ce qu'un technopôle ?","a":["Un site de haute technologie et de recherche","Une zone agricole","Un port de pêche","Une station de ski"],"correct":0,"exp":"Un technopôle regroupe entreprises high-tech, recherche et universités."},{"q":"Que vise l'aménagement du territoire ?","a":["Réduire les inégalités entre territoires","Augmenter les impôts","Fermer les frontières","Supprimer les régions"],"correct":0,"exp":"L'aménagement vise à réduire les inégalités territoriales."},{"q":"Qu'est-ce qu'un DROM ?","a":["Un département et région d'outre-mer","Une organisation européenne","Un type de traité","Une zone industrielle"],"correct":0,"exp":"Guadeloupe, Martinique, Guyane, La Réunion et Mayotte sont des DROM."},{"q":"Quel acteur intervient dans l'aménagement aux côtés de l'État ?","a":["Les collectivités territoriales","Les entreprises étrangères uniquement","L'ONU","L'OTAN"],"correct":0,"exp":"État, collectivités territoriales et UE interviennent dans l'aménagement."},{"q":"Le secteur tertiaire correspond :","a":["aux services","à l'agriculture","à l'industrie","à la pêche"],"correct":0,"exp":"Le secteur tertiaire regroupe les services (commerce, santé, tourisme...)."},{"q":"La « diagonale du vide » désigne :","a":["des espaces de faible densité","les grandes villes","le littoral","les Alpes"],"correct":0,"exp":"La diagonale du vide regroupe des espaces ruraux peu peuplés."},{"q":"Un territoire ultramarin éloigné de la métropole est :","a":["La Réunion","La Bretagne","Paris","L'Alsace"],"correct":0,"exp":"La Réunion est un territoire ultramarin (DROM) dans l'océan Indien."},{"q":"L'agriculture française est surtout :","a":["productive et exportatrice","de subsistance","inexistante","uniquement bio"],"correct":0,"exp":"L'agriculture française est productive et tournée vers l'exportation."},{"q":"Combien d'États membres compte l'Union européenne ?","a":["27","15","12","50"],"correct":0,"exp":"Depuis le Brexit, l'UE compte 27 États membres."},{"q":"Quelle est la monnaie unique de la zone euro ?","a":["L'euro","Le franc","Le mark","La livre"],"correct":0,"exp":"L'euro a été mis en circulation en 2002."},{"q":"Qu'est-ce que l'espace Schengen ?","a":["Une zone de libre circulation","Une zone militaire","Une union douanière mondiale","Une monnaie"],"correct":0,"exp":"L'espace Schengen permet la libre circulation des personnes."},{"q":"Quel traité crée l'Union européenne en 1992 ?","a":["Le traité de Maastricht","Le traité de Rome","Le traité de Lisbonne","Le traité de Versailles"],"correct":0,"exp":"Le traité de Maastricht (1992) crée l'Union européenne."},{"q":"Qu'est-ce que la mondialisation ?","a":["La mise en relation des territoires par les échanges","La fermeture des frontières","Une guerre commerciale","Un type d'agriculture"],"correct":0,"exp":"La mondialisation met en relation tous les territoires par des flux."},{"q":"Qu'est-ce qu'une firme transnationale (FTN) ?","a":["Une entreprise présente dans plusieurs pays","Une entreprise locale","Une administration","Une ONG"],"correct":0,"exp":"Une FTN est une entreprise implantée dans plusieurs pays."},{"q":"Qu'est-ce qu'une ZEE ?","a":["Une zone économique exclusive maritime","Une zone euro","Une zone industrielle","Une zone agricole"],"correct":0,"exp":"La ZEE est un espace maritime sous contrôle économique d'un État."},{"q":"La France possède le 2ᵉ domaine mondial pour :","a":["l'espace maritime","la population","la superficie terrestre","les forêts"],"correct":0,"exp":"Grâce à l'outre-mer, la France a le 2e domaine maritime mondial."},{"q":"La France est membre permanent de quel conseil ?","a":["Le Conseil de sécurité de l'ONU","Le Conseil de l'Europe seul","Le G7 uniquement","L'OPEP"],"correct":0,"exp":"La France est membre permanent du Conseil de sécurité de l'ONU."},{"q":"Qu'est-ce que la francophonie ?","a":["L'ensemble des populations parlant français","Une organisation militaire","Une monnaie","Un parti politique"],"correct":0,"exp":"La francophonie regroupe les populations parlant français dans le monde."}],"fr":[{"q":"Quelle est la nature du mot « rapidement » ?","a":["Adverbe","Adjectif","Nom","Verbe"],"correct":0,"exp":"« Rapidement » modifie un verbe : c'est un adverbe (souvent en -ment)."},{"q":"Quelle est la nature de « le » dans « le chien » ?","a":["Déterminant","Pronom","Adjectif","Adverbe"],"correct":0,"exp":"« Le » précède et accompagne le nom : c'est un déterminant (article)."},{"q":"Quelle est la nature de « beau » dans « un beau jardin » ?","a":["Adjectif qualificatif","Nom","Verbe","Adverbe"],"correct":0,"exp":"« Beau » précise une qualité du nom : c'est un adjectif."},{"q":"Quelle est la nature de « il » ?","a":["Pronom","Nom","Déterminant","Conjonction"],"correct":0,"exp":"« Il » remplace un nom : c'est un pronom personnel."},{"q":"Quelle est la nature de « courir » ?","a":["Verbe","Nom","Adjectif","Adverbe"],"correct":0,"exp":"« Courir » exprime une action : c'est un verbe (à l'infinitif)."},{"q":"« Mais », « ou », « et », « donc » sont des :","a":["conjonctions de coordination","prépositions","adverbes","pronoms"],"correct":0,"exp":"Ce sont des conjonctions de coordination (mais, ou, et, donc, or, ni, car)."},{"q":"« À », « de », « pour », « sans » sont des :","a":["prépositions","adverbes","conjonctions","déterminants"],"correct":0,"exp":"Ce sont des prépositions, qui introduisent un complément."},{"q":"Une classe de mots invariable est :","a":["l'adverbe","le nom","l'adjectif","le verbe"],"correct":0,"exp":"L'adverbe est invariable, contrairement au nom ou à l'adjectif."},{"q":"« Oh ! », « hélas ! » sont des :","a":["interjections","verbes","noms","pronoms"],"correct":0,"exp":"Les interjections expriment une émotion."},{"q":"« Mon », « ton », « ses » sont des déterminants :","a":["possessifs","démonstratifs","numéraux","indéfinis"],"correct":0,"exp":"Ce sont des déterminants possessifs."},{"q":"« Ce », « cette », « ces » sont des déterminants :","a":["démonstratifs","possessifs","numéraux","interrogatifs"],"correct":0,"exp":"Ce sont des déterminants démonstratifs."},{"q":"« Qui », « que », « dont », « où » sont des pronoms :","a":["relatifs","personnels","possessifs","démonstratifs"],"correct":0,"exp":"Ce sont des pronoms relatifs, qui introduisent une proposition relative."},{"q":"La nature d'un mot, c'est :","a":["ce qu'il est (sa classe)","son rôle dans la phrase","son temps","son genre seulement"],"correct":0,"exp":"La nature (ou classe) est ce qu'est le mot ; la fonction est son rôle."},{"q":"« Trois », « dix » sont des déterminants :","a":["numéraux","possessifs","démonstratifs","indéfinis"],"correct":0,"exp":"Ce sont des déterminants numéraux."},{"q":"Quelle est la fonction de « les élèves » dans « les élèves travaillent » ?","a":["Sujet","COD","COI","Attribut"],"correct":0,"exp":"« Les élèves » fait l'action : c'est le sujet."},{"q":"Dans « je lis un livre », quelle est la fonction de « un livre » ?","a":["COD","COI","Sujet","Attribut"],"correct":0,"exp":"« Un livre » complète le verbe sans préposition : c'est un COD."},{"q":"Dans « je parle à mon ami », « à mon ami » est :","a":["COI","COD","Sujet","Épithète"],"correct":0,"exp":"Avec la préposition « à », c'est un complément d'objet indirect (COI)."},{"q":"Dans « elle est intelligente », « intelligente » est :","a":["attribut du sujet","COD","épithète","sujet"],"correct":0,"exp":"Après un verbe d'état, c'est un attribut du sujet."},{"q":"Dans « une voiture rapide », « rapide » est :","a":["épithète","attribut","COD","sujet"],"correct":0,"exp":"L'adjectif placé à côté du nom est épithète."},{"q":"Dans « il part demain », « demain » est :","a":["complément circonstanciel de temps","COD","sujet","attribut"],"correct":0,"exp":"« Demain » précise le temps : complément circonstanciel de temps."},{"q":"Pour trouver le sujet, on demande :","a":["« Qui est-ce qui… ? »","« Quand ? »","« Où ? »","« Comment ? »"],"correct":0,"exp":"On pose « Qui est-ce qui… ? » devant le verbe."},{"q":"Le COD répond à la question :","a":["qui ? / quoi ?","à qui ? / de quoi ?","où ?","quand ?"],"correct":0,"exp":"Le COD répond à « qui ? » ou « quoi ? » sans préposition."},{"q":"Le COI répond à la question :","a":["à qui ? / de quoi ?","qui ? / quoi ?","comment ?","pourquoi ?"],"correct":0,"exp":"Le COI répond à « à qui ? » ou « de quoi ? »."},{"q":"Quel complément peut souvent être déplacé ou supprimé ?","a":["Le complément circonstanciel","Le sujet","Le COD","Le verbe"],"correct":0,"exp":"Le complément circonstanciel est mobile et souvent supprimable."},{"q":"L'attribut du sujet est relié au sujet par :","a":["un verbe d'état","une préposition","une virgule","un adverbe"],"correct":0,"exp":"Un verbe d'état (être, sembler, paraître...) relie l'attribut au sujet."},{"q":"Le sujet commande :","a":["l'accord du verbe","la ponctuation","le genre du COD","le temps du récit"],"correct":0,"exp":"Le verbe s'accorde en personne et en nombre avec le sujet."},{"q":"Une proposition s'organise autour d'un :","a":["verbe conjugué","nom","adjectif","adverbe"],"correct":0,"exp":"Autant de verbes conjugués, autant de propositions."},{"q":"Une phrase avec une seule proposition est :","a":["une phrase simple","une phrase complexe","une subordonnée","une interjection"],"correct":0,"exp":"Une phrase simple ne contient qu'une proposition."},{"q":"Dans « Il pleut, je rentre », les propositions sont :","a":["juxtaposées","coordonnées","subordonnées","relatives"],"correct":0,"exp":"Séparées par une virgule sans mot de liaison : juxtaposition."},{"q":"Dans « Il pleut et je rentre », les propositions sont :","a":["coordonnées","juxtaposées","subordonnées","attributives"],"correct":0,"exp":"Reliées par « et » : coordination."},{"q":"Dans « Je rentre parce qu'il pleut », « parce qu'il pleut » est :","a":["une subordonnée","une principale","une coordonnée","une juxtaposée"],"correct":0,"exp":"Elle dépend de la principale : c'est une subordonnée."},{"q":"« Le livre que je lis » contient une subordonnée :","a":["relative","conjonctive","circonstancielle","interrogative"],"correct":0,"exp":"Introduite par le pronom relatif « que » : subordonnée relative."},{"q":"« Je pense qu'il viendra » contient une subordonnée introduite par :","a":["que","qui","dont","où"],"correct":0,"exp":"La subordonnée conjonctive est introduite par « que »."},{"q":"Une subordonnée de temps répond à la question :","a":["quand ?","pourquoi ?","comment ?","combien ?"],"correct":0,"exp":"La subordonnée circonstancielle de temps répond à « quand ? »."},{"q":"À quel temps est « je mangeais » ?","a":["Imparfait","Passé composé","Futur","Présent"],"correct":0,"exp":"La terminaison -ais est caractéristique de l'imparfait."},{"q":"À quel temps est « j'ai mangé » ?","a":["Passé composé","Imparfait","Plus-que-parfait","Futur"],"correct":0,"exp":"Auxiliaire au présent + participe passé : passé composé."},{"q":"À quel temps est « je mangerai » ?","a":["Futur simple","Conditionnel","Présent","Imparfait"],"correct":0,"exp":"La terminaison -ai au futur : futur simple."},{"q":"« Soudain, il entra » : quel temps ?","a":["Passé simple","Imparfait","Présent","Futur"],"correct":0,"exp":"Le passé simple exprime une action soudaine du premier plan."},{"q":"Quel mode exprime un ordre ?","a":["L'impératif","L'indicatif","Le conditionnel","Le subjonctif"],"correct":0,"exp":"L'impératif exprime l'ordre ou le conseil, sans sujet exprimé."},{"q":"« Il faut que tu viennes » : quel mode pour « viennes » ?","a":["Subjonctif","Indicatif","Impératif","Conditionnel"],"correct":0,"exp":"Après « il faut que », on emploie le subjonctif."},{"q":"« Je viendrais si je pouvais » : quel mode pour « viendrais » ?","a":["Conditionnel","Indicatif","Subjonctif","Impératif"],"correct":0,"exp":"L'action soumise à une condition est au conditionnel."},{"q":"Le mode du réel, le plus riche en temps, est :","a":["l'indicatif","le subjonctif","l'impératif","le conditionnel"],"correct":0,"exp":"L'indicatif est le mode du réel."},{"q":"Quel mode est impersonnel (ne se conjugue pas) ?","a":["L'infinitif","L'indicatif","Le subjonctif","L'impératif"],"correct":0,"exp":"L'infinitif, le participe et le gérondif sont impersonnels."},{"q":"Dans un récit au passé, on décrit avec :","a":["l'imparfait","le passé simple","le futur","l'impératif"],"correct":0,"exp":"L'imparfait sert aux descriptions et à l'arrière-plan."},{"q":"Dans un récit, les actions soudaines sont au :","a":["passé simple","imparfait","présent","conditionnel"],"correct":0,"exp":"Le passé simple marque les actions de premier plan."},{"q":"Le présent dans « la Terre tourne autour du Soleil » est un présent :","a":["de vérité générale","de narration","d'énonciation","historique"],"correct":0,"exp":"C'est un présent de vérité générale."},{"q":"Le participe passé de « prendre » est :","a":["pris","prendu","prit","prener"],"correct":0,"exp":"Le participe passé de prendre est « pris »."},{"q":"Le participe passé de « faire » est :","a":["fait","faisé","fais","fé"],"correct":0,"exp":"Le participe passé de faire est « fait »."},{"q":"« Mangé » est le participe passé de :","a":["manger","mangir","mangeoir","mangerai"],"correct":0,"exp":"« Mangé » est le participe passé du verbe manger."},{"q":"Quel auxiliaire emploie-t-on dans « elle est partie » ?","a":["être","avoir","aller","faire"],"correct":0,"exp":"Le verbe « partir » se conjugue avec l'auxiliaire être."},{"q":"Avec « être », le participe passé s'accorde avec :","a":["le sujet","le COD","le verbe","l'adverbe"],"correct":0,"exp":"Avec être, le participe s'accorde avec le sujet (Elles sont parties)."},{"q":"Avec « avoir », le participe passé s'accorde avec le COD si :","a":["le COD est placé avant le verbe","le COD est après","il n'y a pas de COD","le sujet est pluriel"],"correct":0,"exp":"Avec avoir, accord avec le COD placé avant (les fleurs que j'ai cueillies)."},{"q":"Dans « les fleurs que j'ai cueillies », pourquoi l'accord ?","a":["le COD « que » est placé avant","le sujet est pluriel","c'est l'auxiliaire être","c'est une habitude"],"correct":0,"exp":"Le COD « que » (= les fleurs) est avant le verbe : accord."},{"q":"Le verbe s'accorde avec :","a":["son sujet","son COD","l'adverbe","l'adjectif"],"correct":0,"exp":"Le verbe s'accorde en personne et en nombre avec son sujet."},{"q":"Dans le groupe nominal, l'adjectif s'accorde avec :","a":["le nom","le verbe","l'adverbe","la préposition"],"correct":0,"exp":"L'adjectif s'accorde en genre et en nombre avec le nom."},{"q":"Le féminin de « heureux » est :","a":["heureuse","heureux","heureuxe","heureusse"],"correct":0,"exp":"Les adjectifs en -eux font leur féminin en -euse."},{"q":"Le pluriel de « cheval » est :","a":["chevaux","chevals","chevaus","chevales"],"correct":0,"exp":"Les noms en -al font souvent leur pluriel en -aux."},{"q":"« J'ai cueilli des fleurs » : le participe « cueilli »…","a":["ne s'accorde pas (COD après)","s'accorde avec fleurs","s'accorde avec je","prend un x"],"correct":0,"exp":"Le COD étant placé après, il n'y a pas d'accord."},{"q":"« a » ou « à » : « Il ___ faim. »","a":["a","à","as","ah"],"correct":0,"exp":"« a » = verbe avoir (on peut dire « avait »)."},{"q":"« et » ou « est » : « Il ___ tard. »","a":["est","et","ai","aie"],"correct":0,"exp":"« est » = verbe être (on peut dire « était »)."},{"q":"« son » ou « sont » : « Ils ___ partis. »","a":["sont","son","sons","s'ont"],"correct":0,"exp":"« sont » = verbe être (on peut dire « étaient »)."},{"q":"« on » ou « ont » : « Ils ___ gagné. »","a":["ont","on","onp","ond"],"correct":0,"exp":"« ont » = verbe avoir (on peut dire « avaient »)."},{"q":"« ce » ou « se » : « Il ___ lave. »","a":["se","ce","ceux","ses"],"correct":0,"exp":"« se » est un pronom réfléchi (il se lave lui-même)."},{"q":"« ces » ou « ses » : « ___ amis à lui »","a":["ses","ces","c'est","sais"],"correct":0,"exp":"« ses » = les siens (possessif)."},{"q":"« ou » ou « où » : « Le lieu ___ tu vas »","a":["où","ou","oux","hou"],"correct":0,"exp":"« où » indique le lieu ; « ou » exprime un choix."},{"q":"« la » ou « là » : « Viens ___ ! »","a":["là","la","l'a","las"],"correct":0,"exp":"« là » indique un lieu ; « la » est un déterminant."},{"q":"« leur » ou « leurs » : « Je ___ parle. »","a":["leur","leurs","l'heure","leure"],"correct":0,"exp":"Devant un verbe, « leur » (pronom) est invariable."},{"q":"« quel » ou « qu'elle » : « ___ heure est-il ? »","a":["Quelle","Qu'elle","Quel","Quels"],"correct":0,"exp":"Ici « quelle » est un déterminant interrogatif accordé avec « heure »."},{"q":"« peu » ou « peut » : « Il ___ venir. »","a":["peut","peu","peux","peus"],"correct":0,"exp":"« peut » = verbe pouvoir (il peut)."},{"q":"« ces » désigne :","a":["ceux-là (démonstratif)","les siens","le verbe être","un lieu"],"correct":0,"exp":"« ces » est un déterminant démonstratif (ces gens-là)."},{"q":"« Fort comme un lion » est :","a":["une comparaison","une métaphore","une litote","une hyperbole"],"correct":0,"exp":"La comparaison utilise un outil (comme, tel...)."},{"q":"« Cet homme est un lion » est :","a":["une métaphore","une comparaison","une litote","un euphémisme"],"correct":0,"exp":"La métaphore rapproche sans outil de comparaison."},{"q":"« Le vent hurlait » est :","a":["une personnification","une métaphore","une litote","une anaphore"],"correct":0,"exp":"On attribue un trait humain (hurler) au vent : personnification."},{"q":"« Mourir de rire » est :","a":["une hyperbole","une litote","un euphémisme","une métonymie"],"correct":0,"exp":"L'hyperbole exagère pour marquer les esprits."},{"q":"« Ce n'est pas mauvais » pour dire « c'est très bon » est :","a":["une litote","une hyperbole","une métaphore","une anaphore"],"correct":0,"exp":"La litote dit moins pour suggérer plus."},{"q":"« Il nous a quittés » pour « il est mort » est :","a":["un euphémisme","une hyperbole","une métaphore","une gradation"],"correct":0,"exp":"L'euphémisme atténue une réalité dure."},{"q":"La répétition d'un mot en début de phrases est :","a":["une anaphore","une litote","un oxymore","une ellipse"],"correct":0,"exp":"L'anaphore répète un mot en tête de phrases successives."},{"q":"« Va, cours, vole » est :","a":["une gradation","une litote","une métaphore","une comparaison"],"correct":0,"exp":"La gradation enchaîne des termes d'intensité croissante."},{"q":"« La nuit et le jour » opposés forment :","a":["une antithèse","une métaphore","une litote","une anaphore"],"correct":0,"exp":"L'antithèse oppose deux termes contraires."},{"q":"« Une obscure clarté » est :","a":["un oxymore","une litote","une hyperbole","une anaphore"],"correct":0,"exp":"L'oxymore unit deux mots contradictoires."},{"q":"Une comparaison contient toujours :","a":["un outil comme « comme »","un point d'exclamation","un verbe d'action","un nom propre"],"correct":0,"exp":"La comparaison emploie un mot-outil : comme, tel, semblable à..."},{"q":"« Il pleut des cordes » est :","a":["une hyperbole","une litote","un euphémisme","une métonymie"],"correct":0,"exp":"L'hyperbole exagère (il pleut très fort)."},{"q":"Pour analyser une figure, il faut :","a":["la nommer, citer, expliquer l'effet","la nommer seulement","la traduire","la recopier"],"correct":0,"exp":"On nomme la figure, on cite, puis on explique l'effet produit."},{"q":"« Boire un verre » (le contenant pour le contenu) est :","a":["une métonymie","une métaphore","une litote","une anaphore"],"correct":0,"exp":"La métonymie désigne une chose par une autre liée (le verre = la boisson)."},{"q":"Quel genre est destiné à être joué ?","a":["Le théâtre","Le roman","La poésie","L'essai"],"correct":0,"exp":"Le théâtre est écrit pour être joué (répliques, didascalies)."},{"q":"Les indications de mise en scène au théâtre sont les :","a":["didascalies","strophes","répliques","vers"],"correct":0,"exp":"Les didascalies sont les indications scéniques."},{"q":"Quel registre cherche à faire rire ?","a":["Le comique","Le tragique","Le pathétique","Le lyrique"],"correct":0,"exp":"Le registre comique provoque le rire."},{"q":"Quel registre inspire crainte et pitié, lié à la fatalité ?","a":["Le tragique","Le comique","Le lyrique","L'épique"],"correct":0,"exp":"Le tragique met en scène la fatalité et le destin."},{"q":"Quel registre exprime des sentiments personnels (amour, mélancolie) ?","a":["Le lyrique","Le comique","L'épique","L'ironique"],"correct":0,"exp":"Le registre lyrique exprime les sentiments du « je »."},{"q":"Quel registre amplifie l'action et l'héroïsme ?","a":["L'épique","Le pathétique","L'ironique","Le comique"],"correct":0,"exp":"Le registre épique amplifie les exploits (hyperboles)."},{"q":"Quel registre crée le doute entre réel et surnaturel ?","a":["Le fantastique","Le comique","Le lyrique","L'épique"],"correct":0,"exp":"Le fantastique installe l'hésitation entre réel et surnaturel."},{"q":"Dire le contraire de ce qu'on pense relève :","a":["de l'ironie","du lyrisme","de l'épique","du pathétique"],"correct":0,"exp":"L'ironie dit le contraire de ce qu'on pense (second degré)."},{"q":"Qui raconte l'histoire dans un récit ?","a":["Le narrateur","L'auteur","L'éditeur","Le libraire"],"correct":0,"exp":"Le narrateur est la voix qui raconte ; l'auteur écrit réellement."},{"q":"Un récit « à la première personne » est mené par :","a":["un narrateur personnage","un narrateur extérieur","l'éditeur","le lecteur"],"correct":0,"exp":"Le narrateur participe à l'histoire (récit à la 1re personne)."},{"q":"Voir l'histoire à travers les pensées d'un personnage, c'est le point de vue :","a":["interne","externe","omniscient","neutre"],"correct":0,"exp":"Le point de vue interne donne accès aux pensées d'un personnage."},{"q":"Un narrateur qui sait tout a un point de vue :","a":["omniscient","interne","externe","limité"],"correct":0,"exp":"Le point de vue omniscient sait tout des personnages."},{"q":"Le point de vue « caméra », sans accès aux pensées, est :","a":["externe","interne","omniscient","subjectif"],"correct":0,"exp":"Le point de vue externe décrit de l'extérieur, comme une caméra."},{"q":"« Il dit : « J'arrive. » » est du discours :","a":["direct","indirect","indirect libre","narrativisé"],"correct":0,"exp":"Les paroles citées entre guillemets relèvent du discours direct."},{"q":"« Il dit qu'il arrivait » est du discours :","a":["indirect","direct","indirect libre","rapporté direct"],"correct":0,"exp":"Les paroles intégrées par une subordonnée : discours indirect."},{"q":"Le discours indirect libre se caractérise par :","a":["l'absence de guillemets et de verbe introducteur","des guillemets","des tirets","une liste"],"correct":0,"exp":"Le discours indirect libre mêle récit et paroles sans marques explicites."}],"math":[{"q":"Combien font 15 % de 200 ?","a":["30","15","45","20"],"correct":0,"exp":"15 % de 200 = 0,15 × 200 = 30."},{"q":"Combien font 25 % de 80 ?","a":["20","25","40","16"],"correct":0,"exp":"25 % = un quart : 80 ÷ 4 = 20."},{"q":"Quel est le PGCD de 12 et 18 ?","a":["6","2","3","36"],"correct":0,"exp":"Diviseurs communs : 1, 2, 3, 6. Le plus grand est 6."},{"q":"Simplifie la fraction 8/12.","a":["2/3","4/6","3/4","8/12"],"correct":0,"exp":"On divise par 4 : 8/12 = 2/3."},{"q":"Combien font 1/2 + 1/4 ?","a":["3/4","2/6","1/6","2/4"],"correct":0,"exp":"1/2 = 2/4, donc 2/4 + 1/4 = 3/4."},{"q":"Combien font 2/3 × 3/4 ?","a":["1/2","6/7","5/12","6/12"],"correct":0,"exp":"2×3 / 3×4 = 6/12 = 1/2."},{"q":"Combien font (-3) × (-4) ?","a":["12","-12","-7","7"],"correct":0,"exp":"Le produit de deux négatifs est positif : 12."},{"q":"Combien font (-5) + 8 ?","a":["3","-3","13","-13"],"correct":0,"exp":"-5 + 8 = 3."},{"q":"Quelle est l'écriture scientifique de 32 000 ?","a":["3,2 × 10⁴","32 × 10³","3,2 × 10³","0,32 × 10⁵"],"correct":0,"exp":"32 000 = 3,2 × 10⁴ (a entre 1 et 10)."},{"q":"Combien font 2³ × 2² ?","a":["2⁵","2⁶","4⁵","2¹"],"correct":0,"exp":"On additionne les exposants : 2³⁺² = 2⁵."},{"q":"Que vaut 2⁵ ?","a":["32","10","25","16"],"correct":0,"exp":"2⁵ = 2×2×2×2×2 = 32."},{"q":"Quelle est la racine carrée de 49 ?","a":["7","24,5","9","6"],"correct":0,"exp":"7 × 7 = 49, donc √49 = 7."},{"q":"Quelle est la racine carrée de 81 ?","a":["9","8","18","27"],"correct":0,"exp":"9 × 9 = 81."},{"q":"Un nombre divisible par 3 a pour caractéristique :","a":["la somme de ses chiffres est divisible par 3","il est pair","il finit par 5","il finit par 0"],"correct":0,"exp":"Critère de divisibilité par 3 : somme des chiffres divisible par 3."},{"q":"Un nombre premier a exactement :","a":["deux diviseurs","un diviseur","trois diviseurs","aucun diviseur"],"correct":0,"exp":"Un nombre premier n'a que 1 et lui-même comme diviseurs."},{"q":"Lequel est un nombre premier ?","a":["7","9","15","21"],"correct":0,"exp":"7 n'a que 1 et 7 comme diviseurs."},{"q":"Augmenter 50 de 20 %, c'est multiplier par :","a":["1,2","0,2","0,8","2"],"correct":0,"exp":"Augmenter de 20 % = × (1 + 0,20) = × 1,2 → 60."},{"q":"Quel est le résultat de 7 + 3 × 2 ?","a":["13","20","17","26"],"correct":0,"exp":"Priorité à la multiplication : 7 + 6 = 13."},{"q":"Développe (x + 3)(x + 2).","a":["x² + 5x + 6","x² + 6x + 5","x² + 6","2x + 5"],"correct":0,"exp":"Double distributivité : x² + 2x + 3x + 6 = x² + 5x + 6."},{"q":"Développe 3(x + 4).","a":["3x + 12","3x + 4","x + 12","3x × 4"],"correct":0,"exp":"Simple distributivité : 3×x + 3×4 = 3x + 12."},{"q":"Factorise 5x + 5y.","a":["5(x + y)","5xy","x + y","10(x+y)"],"correct":0,"exp":"Facteur commun 5 : 5(x + y)."},{"q":"Factorise 2x + 6.","a":["2(x + 3)","2x + 3","2(x + 6)","x + 3"],"correct":0,"exp":"Facteur commun 2 : 2(x + 3)."},{"q":"Résous : 2x + 4 = 10. Que vaut x ?","a":["3","2","6","7"],"correct":0,"exp":"2x = 6 donc x = 3."},{"q":"Résous : x + 7 = 12. Que vaut x ?","a":["5","19","7","12"],"correct":0,"exp":"x = 12 - 7 = 5."},{"q":"Résous : 3x = 21. Que vaut x ?","a":["7","18","24","3"],"correct":0,"exp":"x = 21 ÷ 3 = 7."},{"q":"Résous : 5x - 2 = 13. Que vaut x ?","a":["3","2","5","11"],"correct":0,"exp":"5x = 15 donc x = 3."},{"q":"Si A × B = 0, alors :","a":["A = 0 ou B = 0","A = B","A + B = 0","A = 1"],"correct":0,"exp":"Équation produit nul : un des facteurs est nul."},{"q":"Pour x = 2, que vaut 3x - 1 ?","a":["5","6","7","1"],"correct":0,"exp":"3×2 - 1 = 6 - 1 = 5."},{"q":"Réduis : 2x + 3x.","a":["5x","6x","5x²","23x"],"correct":0,"exp":"On additionne les coefficients : 2x + 3x = 5x."},{"q":"Réduis : 4x - x.","a":["3x","4","4x","5x"],"correct":0,"exp":"4x - 1x = 3x."},{"q":"Quel théorème relie les côtés d'un triangle rectangle ?","a":["Pythagore","Thalès","Al-Kashi","Descartes"],"correct":0,"exp":"Le théorème de Pythagore relie les côtés du triangle rectangle."},{"q":"Selon Pythagore (rectangle en A) :","a":["BC² = AB² + AC²","BC = AB + AC","BC² = AB² - AC²","AB² = BC² + AC²"],"correct":0,"exp":"Le carré de l'hypoténuse = somme des carrés des autres côtés."},{"q":"À quoi sert la réciproque de Pythagore ?","a":["prouver qu'un triangle est rectangle","calculer une aire","mesurer un angle","tracer un cercle"],"correct":0,"exp":"La réciproque permet de démontrer qu'un triangle est rectangle."},{"q":"Le théorème de Thalès concerne surtout :","a":["des droites parallèles","les angles droits","les probabilités","les pourcentages"],"correct":0,"exp":"Thalès s'applique avec des droites parallèles coupant deux sécantes."},{"q":"La réciproque de Thalès sert à prouver que :","a":["deux droites sont parallèles","un triangle est rectangle","un angle est droit","deux cercles sont égaux"],"correct":0,"exp":"La réciproque de Thalès prouve le parallélisme de deux droites."},{"q":"« SOH-CAH-TOA » : le cosinus est égal à :","a":["adjacent / hypoténuse","opposé / hypoténuse","opposé / adjacent","hypoténuse / adjacent"],"correct":0,"exp":"CAH : Cosinus = Adjacent / Hypoténuse."},{"q":"Le sinus d'un angle est égal à :","a":["opposé / hypoténuse","adjacent / hypoténuse","opposé / adjacent","hypoténuse / opposé"],"correct":0,"exp":"SOH : Sinus = Opposé / Hypoténuse."},{"q":"La tangente d'un angle est égale à :","a":["opposé / adjacent","opposé / hypoténuse","adjacent / hypoténuse","hypoténuse / opposé"],"correct":0,"exp":"TOA : Tangente = Opposé / Adjacent."},{"q":"Dans un triangle rectangle, l'hypoténuse est :","a":["le côté le plus long, opposé à l'angle droit","le plus court côté","un côté de l'angle droit","la hauteur"],"correct":0,"exp":"L'hypoténuse est le côté opposé à l'angle droit, le plus long."},{"q":"La somme des angles d'un triangle vaut :","a":["180°","360°","90°","270°"],"correct":0,"exp":"La somme des angles d'un triangle est toujours 180°."},{"q":"La somme des angles d'un quadrilatère vaut :","a":["360°","180°","90°","720°"],"correct":0,"exp":"Un quadrilatère a une somme d'angles de 360°."},{"q":"Si un triangle a un côté de 3, 4 et 5, il est :","a":["rectangle","équilatéral","isocèle seulement","quelconque"],"correct":0,"exp":"3² + 4² = 9 + 16 = 25 = 5² : il est rectangle (réciproque de Pythagore)."},{"q":"Combien de côtés a un hexagone ?","a":["6","5","7","8"],"correct":0,"exp":"Un hexagone a 6 côtés."},{"q":"Un angle droit mesure :","a":["90°","180°","45°","360°"],"correct":0,"exp":"Un angle droit mesure 90°."},{"q":"Un angle plat mesure :","a":["180°","90°","360°","45°"],"correct":0,"exp":"Un angle plat mesure 180°."},{"q":"Dans un triangle isocèle :","a":["deux côtés sont égaux","tous les côtés sont égaux","aucun côté n'est égal","il y a un angle droit"],"correct":0,"exp":"Un triangle isocèle a deux côtés (et deux angles) égaux."},{"q":"Quelle est l'aire d'un disque de rayon 5 (en fonction de π) ?","a":["25π","10π","5π","100π"],"correct":0,"exp":"Aire = π × r² = π × 5² = 25π."},{"q":"Le périmètre d'un cercle de rayon r est :","a":["2 × π × r","π × r²","π × r","2 × r"],"correct":0,"exp":"Le périmètre (circonférence) vaut 2πr."},{"q":"L'aire d'un rectangle de 4 par 6 est :","a":["24","20","10","48"],"correct":0,"exp":"Aire = Longueur × largeur = 4 × 6 = 24."},{"q":"L'aire d'un triangle est :","a":["(base × hauteur) / 2","base × hauteur","base + hauteur","2 × base × hauteur"],"correct":0,"exp":"Aire du triangle = (base × hauteur) / 2."},{"q":"Le volume d'un cube d'arête 3 cm est :","a":["27 cm³","9 cm³","18 cm³","12 cm³"],"correct":0,"exp":"Volume = arête³ = 3³ = 27 cm³."},{"q":"Le volume d'un pavé droit est :","a":["L × l × h","L × l","L + l + h","2(L + l)"],"correct":0,"exp":"Volume du pavé = Longueur × largeur × hauteur."},{"q":"Le volume d'un cylindre est :","a":["π × r² × h","π × r × h","2 × π × r","π × r²"],"correct":0,"exp":"Volume du cylindre = π × r² × hauteur."},{"q":"Le volume d'une pyramide est :","a":["(aire de base × hauteur) / 3","aire de base × hauteur","base × hauteur","(base + hauteur)/2"],"correct":0,"exp":"Volume pyramide/cône = (aire de base × hauteur) / 3."},{"q":"Combien de cm dans 1 mètre ?","a":["100","10","1000","60"],"correct":0,"exp":"1 m = 100 cm."},{"q":"Combien de mL dans 1 litre ?","a":["1000","100","10","500"],"correct":0,"exp":"1 L = 1000 mL = 1 dm³."},{"q":"1 L correspond à :","a":["1 dm³","1 cm³","1 m³","1 mm³"],"correct":0,"exp":"1 L = 1 dm³."},{"q":"Le volume d'une boule de rayon r est :","a":["(4/3) × π × r³","π × r²","(4/3) × π × r²","2 × π × r³"],"correct":0,"exp":"Volume de la boule = (4/3) × π × r³."},{"q":"Combien de minutes dans 2 heures ?","a":["120","100","60","240"],"correct":0,"exp":"2 × 60 = 120 minutes."},{"q":"Une vitesse se calcule avec :","a":["v = distance / temps","v = temps / distance","v = distance × temps","v = distance + temps"],"correct":0,"exp":"v = d / t."},{"q":"Une fonction linéaire a pour forme :","a":["f(x) = ax","f(x) = ax + b","f(x) = x²","f(x) = b"],"correct":0,"exp":"La fonction linéaire est f(x) = ax (proportionnalité)."},{"q":"Une fonction affine a pour forme :","a":["f(x) = ax + b","f(x) = ax","f(x) = x³","f(x) = a/x"],"correct":0,"exp":"La fonction affine est f(x) = ax + b."},{"q":"La représentation d'une fonction affine est :","a":["une droite","une parabole","un cercle","une hyperbole"],"correct":0,"exp":"Une fonction affine se représente par une droite."},{"q":"Si f(x) = 2x + 1, que vaut f(3) ?","a":["7","6","5","9"],"correct":0,"exp":"f(3) = 2×3 + 1 = 7."},{"q":"Si f(x) = 3x, que vaut f(4) ?","a":["12","7","34","1"],"correct":0,"exp":"f(4) = 3 × 4 = 12."},{"q":"L'image de 2 par f(x) = x² est :","a":["4","2","8","1"],"correct":0,"exp":"f(2) = 2² = 4."},{"q":"Dans f(x) = ax + b, b est :","a":["l'ordonnée à l'origine","le coefficient directeur","l'image de 1","l'antécédent de 0"],"correct":0,"exp":"b est l'ordonnée à l'origine (valeur en x = 0)."},{"q":"Dans f(x) = ax + b, a est :","a":["le coefficient directeur","l'ordonnée à l'origine","l'image de 0","le maximum"],"correct":0,"exp":"a est le coefficient directeur (pente de la droite)."},{"q":"Deux grandeurs proportionnelles : on passe de l'une à l'autre en :","a":["multipliant par un même nombre","additionnant","soustrayant","élevant au carré"],"correct":0,"exp":"On multiplie toujours par le coefficient de proportionnalité."},{"q":"Pour résoudre une proportion, on utilise souvent :","a":["le produit en croix","Pythagore","la trigonométrie","une boucle"],"correct":0,"exp":"Le produit en croix résout les situations de proportionnalité."},{"q":"Une fonction linéaire passe toujours par :","a":["l'origine (0 ; 0)","le point (1 ; 1)","le point (0 ; 1)","aucun point fixe"],"correct":0,"exp":"f(x) = ax passe par l'origine du repère."},{"q":"L'antécédent de 6 par f(x) = 2x est :","a":["3","12","6","8"],"correct":0,"exp":"On résout 2x = 6 donc x = 3."},{"q":"Une échelle sur une carte est une situation de :","a":["proportionnalité","probabilité","géométrie dans l'espace","statistique"],"correct":0,"exp":"Les échelles relèvent de la proportionnalité."},{"q":"Une situation de pourcentage est une situation de :","a":["proportionnalité","fonction du second degré","géométrie","algorithmique"],"correct":0,"exp":"Les pourcentages sont des situations de proportionnalité."},{"q":"La moyenne de 4, 6 et 8 est :","a":["6","18","9","5"],"correct":0,"exp":"(4 + 6 + 8) / 3 = 18 / 3 = 6."},{"q":"Comment calcule-t-on une moyenne ?","a":["somme des valeurs ÷ nombre de valeurs","valeur max - valeur min","la valeur du milieu","la valeur la plus fréquente"],"correct":0,"exp":"Moyenne = somme des valeurs ÷ nombre de valeurs."},{"q":"La médiane d'une série partage la série en :","a":["deux moitiés","trois tiers","quatre quarts","deux fois la moyenne"],"correct":0,"exp":"La médiane sépare la série en deux moitiés égales."},{"q":"L'étendue d'une série est :","a":["max - min","la moyenne","la médiane","le total"],"correct":0,"exp":"Étendue = valeur maximale - valeur minimale."},{"q":"La médiane de 2, 5, 9 est :","a":["5","9","2","16"],"correct":0,"exp":"La valeur du milieu de la série ordonnée est 5."},{"q":"L'étendue de 3, 7, 10, 15 est :","a":["12","15","3","18"],"correct":0,"exp":"15 - 3 = 12."},{"q":"Quelle est la probabilité d'obtenir un 6 avec un dé à 6 faces ?","a":["1/6","1/3","1/2","6"],"correct":0,"exp":"Un cas favorable sur six : 1/6."},{"q":"Une probabilité est toujours comprise entre :","a":["0 et 1","0 et 100","1 et 10","-1 et 1"],"correct":0,"exp":"Une probabilité est un nombre entre 0 et 1."},{"q":"La probabilité d'un événement certain est :","a":["1","0","0,5","100"],"correct":0,"exp":"Un événement certain a une probabilité de 1."},{"q":"La probabilité d'un événement impossible est :","a":["0","1","0,5","-1"],"correct":0,"exp":"Un événement impossible a une probabilité de 0."},{"q":"P(événement contraire) est égale à :","a":["1 - P(événement)","P(événement)","0","1"],"correct":0,"exp":"P(contraire) = 1 - P(événement)."},{"q":"Probabilité de tirer une boule rouge parmi 2 rouges et 3 bleues :","a":["2/5","3/5","2/3","1/2"],"correct":0,"exp":"2 cas favorables sur 5 boules : 2/5."},{"q":"La somme des probabilités de toutes les issues vaut :","a":["1","0","100","la moyenne"],"correct":0,"exp":"La somme de toutes les probabilités est égale à 1."},{"q":"Avec une pièce équilibrée, P(pile) vaut :","a":["1/2","1/4","1","2"],"correct":0,"exp":"Deux issues équiprobables : P(pile) = 1/2."},{"q":"Une voiture parcourt 100 km en 2 h. Sa vitesse est :","a":["50 km/h","200 km/h","2 km/h","100 km/h"],"correct":0,"exp":"v = d/t = 100/2 = 50 km/h."},{"q":"Pour convertir 10 m/s en km/h, on multiplie par :","a":["3,6","60","100","10"],"correct":0,"exp":"1 m/s = 3,6 km/h, donc 10 m/s = 36 km/h."},{"q":"Combien font 0,5 h en minutes ?","a":["30","50","5","60"],"correct":0,"exp":"0,5 h = 30 minutes."},{"q":"Une distance de 2,5 km vaut en mètres :","a":["2500","250","25000","25"],"correct":0,"exp":"2,5 km = 2500 m."},{"q":"En 3 heures à 60 km/h, on parcourt :","a":["180 km","20 km","63 km","120 km"],"correct":0,"exp":"d = v × t = 60 × 3 = 180 km."},{"q":"Combien de secondes dans 5 minutes ?","a":["300","50","500","60"],"correct":0,"exp":"5 × 60 = 300 secondes."},{"q":"En programmation, une boucle sert à :","a":["répéter des instructions","arrêter le programme","stocker une valeur","afficher une erreur"],"correct":0,"exp":"La boucle répète un ensemble d'instructions."},{"q":"Une variable, en programmation, sert à :","a":["stocker une valeur","répéter une action","tracer un cercle","tester une condition"],"correct":0,"exp":"Une variable stocke une valeur que le programme peut modifier."},{"q":"« Si … alors … sinon … » est :","a":["une instruction conditionnelle","une boucle","une variable","une fonction"],"correct":0,"exp":"C'est un test (instruction conditionnelle)."},{"q":"Dans Scratch, pour dessiner un carré, on répète :","a":["4 fois (avancer + tourner de 90°)","3 fois","6 fois","2 fois"],"correct":0,"exp":"Un carré : 4 répétitions d'avancer puis tourner de 90°."},{"q":"Les coordonnées d'un point dans un repère sont notées :","a":["(x ; y)","(a + b)","[x , y , z]","x/y"],"correct":0,"exp":"Un point est repéré par ses coordonnées (x ; y)."},{"q":"Pour dessiner un triangle équilatéral en Scratch, on tourne de :","a":["120°","90°","60°","45°"],"correct":0,"exp":"L'angle de rotation extérieur d'un triangle équilatéral est 120°."}],"sci":[{"q":"Quelle est la formule chimique de l'eau ?","a":["H₂O","CO₂","O₂","H₂O₂"],"correct":0,"exp":"L'eau = 2 atomes d'hydrogène + 1 d'oxygène : H₂O."},{"q":"De quoi sont composées les molécules ?","a":["D'atomes","De cellules","D'organes","De planètes"],"correct":0,"exp":"Les molécules sont des assemblages d'atomes."},{"q":"Les trois états de la matière sont :","a":["solide, liquide, gaz","chaud, froid, tiède","dur, mou, liquide","petit, moyen, grand"],"correct":0,"exp":"La matière existe à l'état solide, liquide ou gazeux."},{"q":"Le passage de solide à liquide s'appelle :","a":["la fusion","la solidification","la vaporisation","la condensation"],"correct":0,"exp":"La fusion fait passer un solide à l'état liquide."},{"q":"Le passage de liquide à gaz s'appelle :","a":["la vaporisation","la fusion","la solidification","la condensation"],"correct":0,"exp":"La vaporisation (ébullition/évaporation) fait passer un liquide à l'état gazeux."},{"q":"Le passage de gaz à liquide s'appelle :","a":["la condensation","la fusion","la sublimation","la vaporisation"],"correct":0,"exp":"La condensation (liquéfaction) fait passer un gaz à l'état liquide."},{"q":"Le passage de liquide à solide s'appelle :","a":["la solidification","la fusion","la vaporisation","la condensation"],"correct":0,"exp":"La solidification fait passer un liquide à l'état solide."},{"q":"Lors d'un changement d'état, la masse :","a":["se conserve","augmente","diminue","disparaît"],"correct":0,"exp":"La masse se conserve lors d'un changement d'état."},{"q":"En gelant, l'eau :","a":["augmente de volume","diminue de volume","perd de la masse","disparaît"],"correct":0,"exp":"L'eau augmente de volume en gelant (cas particulier)."},{"q":"Lors d'une transformation chimique, les réactifs deviennent :","a":["des produits","des atomes isolés","de l'énergie pure","des cellules"],"correct":0,"exp":"Les réactifs se transforment en produits ; les atomes se réorganisent."},{"q":"Au cours d'une réaction chimique, les atomes sont :","a":["conservés","détruits","créés","transformés en énergie"],"correct":0,"exp":"Les atomes se conservent : la masse totale se conserve."},{"q":"Un mélange homogène est un mélange où :","a":["on ne distingue pas les constituants","on voit deux phases","il y a un dépôt","il y a des bulles"],"correct":0,"exp":"Dans un mélange homogène, on ne distingue pas les constituants (ex : eau salée)."},{"q":"L'eau bout à quelle température (pression normale) ?","a":["100 °C","0 °C","50 °C","212 °C"],"correct":0,"exp":"Au niveau de la mer, l'eau bout à 100 °C."},{"q":"L'eau gèle à quelle température ?","a":["0 °C","100 °C","-100 °C","32 °C"],"correct":0,"exp":"L'eau gèle (se solidifie) à 0 °C."},{"q":"Que mesure-t-on en volts ?","a":["La tension électrique","L'intensité","La résistance","La masse"],"correct":0,"exp":"La tension électrique se mesure en volts (V)."},{"q":"Quelle unité mesure l'intensité d'un courant ?","a":["L'ampère (A)","Le volt (V)","Le watt (W)","L'ohm (Ω)"],"correct":0,"exp":"L'intensité se mesure en ampères (A)."},{"q":"Avec quel appareil mesure-t-on l'intensité ?","a":["Un ampèremètre","Un voltmètre","Un thermomètre","Une balance"],"correct":0,"exp":"L'ampèremètre mesure l'intensité ; il se branche en série."},{"q":"Avec quel appareil mesure-t-on la tension ?","a":["Un voltmètre","Un ampèremètre","Un baromètre","Un chronomètre"],"correct":0,"exp":"Le voltmètre mesure la tension ; il se branche en dérivation."},{"q":"L'ampèremètre se branche :","a":["en série","en dérivation","en parallèle au générateur","aux bornes d'une lampe"],"correct":0,"exp":"L'ampèremètre se branche en série dans le circuit."},{"q":"Le voltmètre se branche :","a":["en dérivation","en série","avant le générateur","à la terre"],"correct":0,"exp":"Le voltmètre se branche en dérivation (aux bornes du dipôle)."},{"q":"La loi d'Ohm s'écrit :","a":["U = R × I","U = R / I","R = U × I","I = U × R"],"correct":0,"exp":"Loi d'Ohm : U = R × I."},{"q":"Dans un circuit en série, l'intensité est :","a":["la même partout","différente partout","nulle","doublée à chaque dipôle"],"correct":0,"exp":"En série, l'intensité est identique en tout point du circuit."},{"q":"La résistance se mesure en :","a":["ohms (Ω)","volts","ampères","watts"],"correct":0,"exp":"La résistance s'exprime en ohms (Ω)."},{"q":"Dans un circuit en série, si une lampe grille :","a":["tout s'éteint","rien ne change","l'intensité double","la tension s'annule au générateur"],"correct":0,"exp":"En série, si un élément est coupé, tout le circuit s'éteint."},{"q":"Un générateur sert à :","a":["fournir l'énergie électrique","mesurer la tension","résister au courant","éclairer"],"correct":0,"exp":"Le générateur fournit l'énergie au circuit."},{"q":"La puissance électrique se calcule par :","a":["P = U × I","P = U / I","P = R × I","P = U + I"],"correct":0,"exp":"P = U × I (en watts)."},{"q":"Quelle est l'unité de l'énergie ?","a":["Le joule (J)","Le watt (W)","Le volt (V)","L'ampère (A)"],"correct":0,"exp":"L'énergie se mesure en joules (J) ; aussi en Wh."},{"q":"Quelle est l'unité de la puissance ?","a":["Le watt (W)","Le joule (J)","Le volt (V)","Le newton (N)"],"correct":0,"exp":"La puissance se mesure en watts (W)."},{"q":"L'énergie cinétique dépend de :","a":["la masse et la vitesse","la couleur","la température seule","la forme"],"correct":0,"exp":"Ec = ½ m v² : elle dépend de la masse et surtout de la vitesse."},{"q":"La formule de l'énergie cinétique est :","a":["Ec = ½ × m × v²","Ec = m × v","Ec = m + v","Ec = m / v"],"correct":0,"exp":"Énergie cinétique : Ec = ½ × m × v²."},{"q":"L'énergie consommée se calcule par :","a":["E = P × t","E = P / t","E = P + t","E = P - t"],"correct":0,"exp":"E = P × t (puissance × temps)."},{"q":"Une énergie renouvelable est :","a":["l'énergie solaire","le charbon","le pétrole","le gaz naturel"],"correct":0,"exp":"Le solaire est renouvelable, contrairement aux énergies fossiles."},{"q":"Une énergie non renouvelable est :","a":["le pétrole","le vent","le soleil","l'eau (hydraulique)"],"correct":0,"exp":"Le pétrole est une énergie fossile non renouvelable."},{"q":"L'énergie :","a":["se conserve et se convertit","se crée","se perd définitivement","n'existe pas"],"correct":0,"exp":"L'énergie se conserve : elle se convertit d'une forme à une autre."},{"q":"L'énergie d'un objet en mouvement est :","a":["cinétique","chimique","thermique","lumineuse"],"correct":0,"exp":"Un objet en mouvement possède de l'énergie cinétique."},{"q":"L'énergie stockée dans une pile est :","a":["chimique","cinétique","lumineuse","nucléaire"],"correct":0,"exp":"Une pile stocke de l'énergie chimique convertie en énergie électrique."},{"q":"Le Soleil fournit principalement de l'énergie :","a":["lumineuse et thermique","chimique","électrique","nucléaire utilisable directement"],"correct":0,"exp":"Le Soleil rayonne de l'énergie lumineuse et thermique."},{"q":"Une centrale hydraulique utilise :","a":["l'énergie de l'eau","le charbon","le pétrole","le gaz"],"correct":0,"exp":"L'hydraulique convertit l'énergie de l'eau en électricité (renouvelable)."},{"q":"La vitesse se calcule par :","a":["v = d / t","v = t / d","v = d × t","v = d + t"],"correct":0,"exp":"v = distance / temps."},{"q":"Le mouvement se décrit par rapport à :","a":["un référentiel","la couleur","la masse","la température"],"correct":0,"exp":"Le mouvement est relatif à un référentiel (point de repère)."},{"q":"Un mouvement à vitesse constante est :","a":["uniforme","accéléré","ralenti","circulaire forcément"],"correct":0,"exp":"Un mouvement à vitesse constante est uniforme."},{"q":"La lumière se propage à environ :","a":["300 000 km/s","340 m/s","3 km/h","1000 km/h"],"correct":0,"exp":"La lumière se propage à environ 300 000 km/s."},{"q":"Le son se propage dans l'air à environ :","a":["340 m/s","300 000 km/s","1 m/s","100 km/h"],"correct":0,"exp":"Le son se propage à environ 340 m/s dans l'air."},{"q":"Le son a besoin pour se propager :","a":["d'un milieu matériel","du vide","de lumière","d'électricité"],"correct":0,"exp":"Le son a besoin d'un milieu matériel ; il ne se propage pas dans le vide."},{"q":"La lumière peut se propager :","a":["dans le vide","seulement dans l'eau","seulement dans l'air","nulle part"],"correct":0,"exp":"Contrairement au son, la lumière se propage dans le vide."},{"q":"Quel signal est le plus rapide ?","a":["Le signal lumineux","Le signal sonore","Ils vont à la même vitesse","Aucun ne se déplace"],"correct":0,"exp":"La lumière est bien plus rapide que le son."},{"q":"Convertir une vitesse en m/s vers km/h : on multiplie par :","a":["3,6","60","100","10"],"correct":0,"exp":"1 m/s = 3,6 km/h."},{"q":"Avant un calcul de vitesse, il faut vérifier :","a":["les unités","la couleur","la masse","la marque de la règle"],"correct":0,"exp":"Il faut convertir et vérifier la cohérence des unités."},{"q":"Quel organe pompe le sang dans le corps ?","a":["Le cœur","Le foie","Les poumons","Le cerveau"],"correct":0,"exp":"Le cœur propulse le sang dans tout l'organisme."},{"q":"Quel gaz les organes consomment-ils ?","a":["Le dioxygène","Le dioxyde de carbone","L'azote","L'hydrogène"],"correct":0,"exp":"Les organes consomment du dioxygène (O₂)."},{"q":"Quel gaz rejette-t-on en respirant ?","a":["Le dioxyde de carbone","Le dioxygène","L'azote","L'hydrogène"],"correct":0,"exp":"La respiration rejette du dioxyde de carbone (CO₂)."},{"q":"Quel est le rôle des globules rouges ?","a":["Transporter le dioxygène","Combattre les microbes","Digérer les aliments","Produire des hormones"],"correct":0,"exp":"Les globules rouges transportent le dioxygène grâce à l'hémoglobine."},{"q":"La digestion transforme les aliments en :","a":["nutriments","déchets uniquement","globules","hormones"],"correct":0,"exp":"La digestion transforme les aliments en nutriments absorbés par le sang."},{"q":"Où passent les nutriments dans le sang ?","a":["au niveau de l'intestin grêle","dans les poumons","dans le cœur","dans le cerveau"],"correct":0,"exp":"Les nutriments passent dans le sang au niveau de l'intestin grêle."},{"q":"Le dioxygène entre dans le sang au niveau :","a":["des poumons (alvéoles)","de l'estomac","du foie","des reins"],"correct":0,"exp":"Les échanges gazeux ont lieu dans les alvéoles pulmonaires."},{"q":"Les cellules produisent de l'énergie à partir de :","a":["glucose et dioxygène","azote et eau","sel et lumière","gaz carbonique seul"],"correct":0,"exp":"Les cellules utilisent glucose + dioxygène pour produire de l'énergie."},{"q":"Quel organe filtre le sang et produit l'urine ?","a":["Les reins","Le cœur","Les poumons","Le foie"],"correct":0,"exp":"Les reins filtrent le sang et fabriquent l'urine."},{"q":"Une alimentation équilibrée contribue à :","a":["préserver la santé","fragiliser l'organisme","réduire le sommeil","supprimer les besoins en eau"],"correct":0,"exp":"Une bonne hygiène de vie préserve la santé."},{"q":"Le tabac est :","a":["un comportement à risque pour la santé","sans effet","bénéfique","un nutriment"],"correct":0,"exp":"Le tabac nuit au fonctionnement de l'organisme."},{"q":"Les micro-organismes pathogènes peuvent provoquer :","a":["des maladies","de l'énergie","des nutriments","du dioxygène"],"correct":0,"exp":"Les micro-organismes pathogènes (bactéries, virus) causent des maladies."},{"q":"Les vaccins servent à :","a":["protéger contre des maladies","soigner toutes les maladies","remplacer l'alimentation","fournir de l'énergie"],"correct":0,"exp":"La vaccination protège contre certaines maladies infectieuses."},{"q":"Les anticorps sont produits par :","a":["le système immunitaire","le cœur","les poumons","l'estomac"],"correct":0,"exp":"Le système immunitaire produit des anticorps pour se défendre."},{"q":"Quelle cellule transmet l'information nerveuse ?","a":["Le neurone","Le globule rouge","L'ovule","La plaquette"],"correct":0,"exp":"Le neurone est la cellule de base du système nerveux."},{"q":"Le système nerveux comprend le cerveau, les nerfs et :","a":["la moelle épinière","le cœur","les poumons","l'estomac"],"correct":0,"exp":"Cerveau, moelle épinière (centres nerveux) et nerfs forment le système nerveux."},{"q":"Les organes des sens captent :","a":["des stimulus","de l'énergie chimique","des nutriments","du dioxygène"],"correct":0,"exp":"Les organes des sens captent des informations (stimulus)."},{"q":"Le centre nerveux qui analyse l'information est :","a":["le cerveau","le muscle","la peau","le poumon"],"correct":0,"exp":"Le cerveau analyse l'information et commande la réponse."},{"q":"Le message nerveux moteur va vers :","a":["un muscle","un os","le sang","l'air"],"correct":0,"exp":"Le nerf moteur transmet l'ordre vers un muscle (effecteur)."},{"q":"Le mouvement résulte de :","a":["la contraction d'un muscle","l'envoi de sang","une respiration","une digestion"],"correct":0,"exp":"Le muscle se contracte : c'est le mouvement."},{"q":"Le sommeil est important pour :","a":["la mémoire et la concentration","la digestion uniquement","la croissance des os seule","la circulation seule"],"correct":0,"exp":"Le sommeil consolide la mémoire et la concentration."},{"q":"Quel comportement perturbe le système nerveux ?","a":["la consommation d'alcool","une bonne hydratation","un sommeil régulier","une alimentation équilibrée"],"correct":0,"exp":"L'alcool et le manque de sommeil perturbent le cerveau et les réflexes."},{"q":"Un capteur sensoriel de la lumière est :","a":["l'œil","l'oreille","la peau","le nez"],"correct":0,"exp":"L'œil capte la lumière (organe de la vue)."},{"q":"Le nerf sensitif transmet le message :","a":["vers le cerveau","vers un muscle","vers le cœur","vers l'estomac"],"correct":0,"exp":"Le nerf sensitif transmet l'information vers le cerveau."},{"q":"Où se trouve l'information génétique dans la cellule ?","a":["dans le noyau","dans la membrane","dans le cytoplasme seul","à l'extérieur"],"correct":0,"exp":"L'information génétique est dans le noyau, sur les chromosomes."},{"q":"Quelle molécule porte l'information génétique ?","a":["L'ADN","L'ARN seul","Le glucose","L'hémoglobine"],"correct":0,"exp":"L'ADN est le support de l'information génétique."},{"q":"Un gène est :","a":["une portion d'ADN","un organe","une cellule","un chromosome entier"],"correct":0,"exp":"Un gène est une portion d'ADN qui détermine un caractère."},{"q":"Combien de chromosomes possède une cellule humaine ?","a":["46","23","2","100"],"correct":0,"exp":"L'espèce humaine a 23 paires, soit 46 chromosomes."},{"q":"Les chromosomes se trouvent :","a":["dans le noyau","dans le sang","dans les muscles","dans l'air"],"correct":0,"exp":"Les chromosomes sont situés dans le noyau des cellules."},{"q":"Lors de la reproduction sexuée, l'enfant reçoit :","a":["la moitié des chromosomes de chaque parent","tous les chromosomes du père","tous ceux de la mère","aucun chromosome"],"correct":0,"exp":"L'enfant reçoit la moitié de ses chromosomes de chaque parent."},{"q":"Un caractère héréditaire est :","a":["transmis des parents aux enfants","acquis par l'entraînement","dû au hasard total","sans rapport avec les gènes"],"correct":0,"exp":"Un caractère héréditaire se transmet des parents aux enfants."},{"q":"Toutes les cellules d'un individu contiennent :","a":["la même information génétique","des gènes différents","aucun ADN","seulement la moitié des gènes"],"correct":0,"exp":"Toutes les cellules d'un individu ont la même information génétique."},{"q":"Les différentes versions d'un gène s'appellent :","a":["des allèles","des neurones","des nutriments","des organites"],"correct":0,"exp":"Les allèles sont les versions différentes d'un même gène."},{"q":"Un exemple de caractère héréditaire est :","a":["la couleur des yeux","une cicatrice","un bronzage","une coiffure"],"correct":0,"exp":"La couleur des yeux est un caractère héréditaire."},{"q":"L'ADN a une forme caractéristique :","a":["en double hélice","en cube","en triangle","en ligne droite"],"correct":0,"exp":"L'ADN a une structure en double hélice."},{"q":"Les ressemblances entre parents et enfants s'expliquent par :","a":["la transmission des gènes","le hasard pur","l'alimentation","le climat"],"correct":0,"exp":"La transmission des gènes explique les ressemblances familiales."},{"q":"Un écosystème regroupe :","a":["des êtres vivants et leur milieu","seulement des plantes","seulement des animaux","uniquement de l'eau"],"correct":0,"exp":"Un écosystème = êtres vivants + milieu de vie en interaction."},{"q":"Une chaîne alimentaire commence souvent par :","a":["un producteur (végétal)","un prédateur","un décomposeur","un humain"],"correct":0,"exp":"Les chaînes alimentaires débutent par des producteurs (végétaux)."},{"q":"La biodiversité désigne :","a":["l'ensemble des espèces vivantes","le nombre d'humains","la quantité d'eau","la météo"],"correct":0,"exp":"La biodiversité est la diversité des espèces vivantes."},{"q":"Quel gaz est responsable du réchauffement climatique ?","a":["Le dioxyde de carbone (CO₂)","Le dioxygène","L'azote","L'hélium"],"correct":0,"exp":"Le CO₂ est un gaz à effet de serre lié au réchauffement."},{"q":"Les énergies fossiles sont :","a":["le charbon, le pétrole, le gaz","le vent et le soleil","l'eau et la géothermie","la biomasse seule"],"correct":0,"exp":"Charbon, pétrole et gaz sont des énergies fossiles."},{"q":"Quelle plante absorbe le CO₂ pour la photosynthèse ?","a":["les végétaux verts","aucun être vivant","les animaux","les champignons seuls"],"correct":0,"exp":"Les végétaux verts absorbent le CO₂ lors de la photosynthèse."},{"q":"La photosynthèse produit notamment :","a":["du dioxygène","du CO₂ uniquement","du méthane","de l'azote"],"correct":0,"exp":"La photosynthèse rejette du dioxygène (O₂)."},{"q":"Les activités humaines peuvent provoquer :","a":["de la pollution","plus de biodiversité automatiquement","un refroidissement garanti","aucune conséquence"],"correct":0,"exp":"Les activités humaines provoquent pollution et perturbations des écosystèmes."},{"q":"L'effet de serre est :","a":["un phénomène naturel amplifié par l'homme","totalement artificiel","sans effet sur le climat","un type d'énergie"],"correct":0,"exp":"L'effet de serre est naturel mais amplifié par les activités humaines."},{"q":"Réduire son impact sur le climat, c'est par exemple :","a":["économiser l'énergie","brûler plus de charbon","gaspiller l'eau","augmenter les déchets"],"correct":0,"exp":"Économiser l'énergie et trier les déchets limitent l'impact climatique."},{"q":"La déforestation entraîne :","a":["une perte de biodiversité","une hausse de la biodiversité","plus de dioxygène","un refroidissement"],"correct":0,"exp":"La déforestation réduit la biodiversité et les puits de carbone."},{"q":"Dans une chaîne alimentaire, le renard qui mange un lapin est un :","a":["consommateur","producteur","décomposeur","végétal"],"correct":0,"exp":"Le renard est un consommateur (il se nourrit d'autres êtres vivants)."},{"q":"Les décomposeurs (champignons, bactéries) :","a":["recyclent la matière organique","produisent la lumière","fabriquent du CO₂ pur","créent des roches"],"correct":0,"exp":"Les décomposeurs recyclent la matière morte dans l'écosystème."},{"q":"Une énergie renouvelable pour l'environnement est :","a":["l'éolien","le charbon","le pétrole","le gaz de schiste"],"correct":0,"exp":"L'éolien est une énergie renouvelable."},{"q":"Le climat de la Terre est influencé par :","a":["les gaz à effet de serre","la couleur des océans","le nombre d'étoiles","la rotation des galaxies"],"correct":0,"exp":"Les gaz à effet de serre influencent le climat terrestre."},{"q":"Préserver la biodiversité permet :","a":["de garder des écosystèmes équilibrés","d'augmenter la pollution","de réchauffer le climat","de réduire l'oxygène"],"correct":0,"exp":"Une biodiversité riche maintient l'équilibre des écosystèmes."}]};
+// dates des épreuves 2026
+const EXAMS=[
+  {key:"fr",emo:"📖",nm:"Français",date:"2026-06-26T09:00:00",dlabel:"vendredi 26 juin"},
+  {key:"hist",emo:"🏛️",nm:"Histoire-Géo-EMC",date:"2026-06-29T09:00:00",dlabel:"lundi 29 juin (matin)"},
+  {key:"sci",emo:"🔬",nm:"Sciences",date:"2026-06-29T14:00:00",dlabel:"lundi 29 juin (après-midi)"},
+  {key:"math",emo:"📐",nm:"Mathématiques",date:"2026-06-30T09:00:00",dlabel:"mardi 30 juin"}
+];
+const QUESTION_TIME=15;        // secondes par question
+const BASE_PTS=100;            // points par bonne réponse
+const SPEED_PTS=10;            // points par seconde restante (bonus vitesse)
+const state={subjects:{hist:true,fr:true,math:true,sci:true},len:10,queue:[],i:0,
+  score:0,correctCount:0,bonusTotal:0,timeTotal:0,streak:0,answered:false,log:[],
+  tLeft:QUESTION_TIME,tInt:null,qStart:0,lastPerf:null};
+const $=s=>document.querySelector(s);
+const homeEl=$("#home"),gameEl=$("#game"),resEl=$("#result"),lbEl=$("#leaderboard");
 
-/* ============================================================
-   ÉTAT & LOGIQUE
-   ============================================================ */
-const state = { subjects:{hist:true,fr:true,math:true,sci:true}, len:10, queue:[], i:0, score:0, streak:0, answered:false, log:[] };
+/* ---------- COMPTE À REBOURS ---------- */
+function renderCountdowns(){
+  const now=new Date();
+  $("#cdYear").textContent="Session 2026";
+  const wrap=$("#countdowns");wrap.innerHTML="";
+  EXAMS.forEach(ex=>{
+    const target=new Date(ex.date);
+    const diffMs=target-now;
+    const days=Math.ceil(diffMs/(1000*60*60*24));
+    const row=document.createElement("div");
+    row.className="cd "+ex.key+(diffMs<0?" done":"");
+    let daysHtml;
+    if(diffMs<0){daysHtml='<div class="days">✓<small>passé</small></div>';}
+    else if(days===0){daysHtml='<div class="days">Auj.<small>jour J</small></div>';}
+    else{daysHtml='<div class="days">'+days+'<small>'+(days>1?"jours":"jour")+'</small></div>';}
+    row.innerHTML='<span class="emo">'+ex.emo+'</span><div class="info"><div class="nm">'+ex.nm+'</div><div class="dt">'+ex.dlabel+'</div></div>'+daysHtml;
+    wrap.appendChild(row);
+  });
+}
 
-const $ = s => document.querySelector(s);
-const homeEl=$("#home"), gameEl=$("#game"), resEl=$("#result");
-
-// afficher le nombre de questions par matière
+/* ---------- SÉLECTION ---------- */
 document.querySelectorAll(".subj").forEach(b=>{
   const k=b.dataset.key;
-  b.querySelector(".cnt").textContent = BANK[k].questions.length+" questions";
+  b.querySelector(".cnt").textContent=BANK[k].length+" questions";
   b.addEventListener("click",()=>{
     state.subjects[k]=!state.subjects[k];
     b.classList.toggle("off",!state.subjects[k]);
-    // empêcher de tout désactiver
-    if(!Object.values(state.subjects).some(Boolean)){ state.subjects[k]=true; b.classList.remove("off"); }
+    if(!Object.values(state.subjects).some(Boolean)){state.subjects[k]=true;b.classList.remove("off");}
   });
 });
-
-// segment longueur
 $("#lenSeg").addEventListener("click",e=>{
-  const btn=e.target.closest("button"); if(!btn)return;
+  const btn=e.target.closest("button");if(!btn)return;
   document.querySelectorAll("#lenSeg button").forEach(x=>x.classList.remove("active"));
-  btn.classList.add("active"); state.len=parseInt(btn.dataset.len,10);
+  btn.classList.add("active");state.len=parseInt(btn.dataset.len,10);
 });
-
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
 function buildQueue(){
   let pool=[];
-  Object.keys(state.subjects).forEach(k=>{
-    if(state.subjects[k]) BANK[k].questions.forEach((q,idx)=>pool.push({...q,subj:k,uid:k+idx}));
-  });
+  Object.keys(state.subjects).forEach(k=>{if(state.subjects[k])BANK[k].forEach((q,idx)=>pool.push({...q,subj:k,uid:k+idx}));});
   pool=shuffle(pool);
-  // pour chaque question, mélanger aussi les réponses
-  pool=pool.map(q=>{
-    const order=shuffle(q.a.map((_,i)=>i));
-    return {...q, a:order.map(i=>q.a[i]), correct:order.indexOf(q.correct)};
-  });
-  const n = state.len===0 ? pool.length : Math.min(state.len,pool.length);
+  pool=pool.map(q=>{const order=shuffle(q.a.map((_,i)=>i));return{...q,a:order.map(i=>q.a[i]),correct:order.indexOf(q.correct)};});
+  const n=state.len===0?pool.length:Math.min(state.len,pool.length);
   state.queue=pool.slice(0,n);
 }
-
 function startGame(){
   buildQueue();
-  state.i=0;state.score=0;state.streak=0;state.log=[];
-  homeEl.classList.add("hide");resEl.classList.add("hide");
+  Object.assign(state,{i:0,score:0,correctCount:0,bonusTotal:0,timeTotal:0,streak:0,log:[],lastPerf:null});
+  homeEl.classList.add("hide");resEl.classList.add("hide");lbEl.classList.add("hide");
   gameEl.classList.remove("hide");gameEl.classList.add("fade");
   renderQuestion();
 }
 
-function renderQuestion(){
-  state.answered=false;
-  const q=state.queue[state.i];
-  const meta=BANK[q.subj];
-  $("#qIndex").textContent=(state.i+1)+" / "+state.queue.length;
-  const tag=$("#qSubject");tag.textContent=meta.label;tag.style.background=meta.color;
-  $("#scorePill").textContent="⭐ "+state.score;
-  $("#bar").style.width=((state.i)/state.queue.length*100)+"%";
-  $("#streakTxt").textContent = state.streak>=3 ? ("🔥 Série de "+state.streak+" !") : "";
-  $("#qText").textContent=q.q;
-  $("#explain").className="explain";$("#explain").innerHTML="";
-  $(".next").className="next";
-
-  const keys=["A","B","C","D"];
-  const wrap=$("#answers");wrap.innerHTML="";
-  q.a.forEach((txt,idx)=>{
-    const b=document.createElement("button");
-    b.className="ans";
-    b.innerHTML='<span class="key">'+keys[idx]+'</span><span>'+txt+'</span>';
-    b.addEventListener("click",()=>choose(idx,b));
-    wrap.appendChild(b);
-  });
+/* ---------- MINUTEUR ---------- */
+function stopTimer(){if(state.tInt){clearInterval(state.tInt);state.tInt=null;}}
+function startTimer(){
+  stopTimer();
+  state.tLeft=QUESTION_TIME;state.qStart=Date.now();
+  updateTimerUI();
+  state.tInt=setInterval(()=>{
+    state.tLeft--;
+    updateTimerUI();
+    if(state.tLeft<=0){stopTimer();timeOut();}
+  },1000);
 }
-
-function choose(idx,btn){
+function updateTimerUI(){
+  const pct=Math.max(0,state.tLeft/QUESTION_TIME*100);
+  $("#timerfill").style.width=pct+"%";
+  const bar=$("#timerbar");bar.classList.toggle("warn",state.tLeft<=7);bar.classList.toggle("crit",state.tLeft<=3);
+  const t=$("#timetxt");
+  if(state.tLeft<=3&&state.tLeft>0)t.innerHTML="<b>"+state.tLeft+" s</b>";
+  else t.textContent=Math.max(0,state.tLeft)+" s";
+}
+function timeOut(){
   if(state.answered)return;
   state.answered=true;
   const q=state.queue[state.i];
   const all=[...document.querySelectorAll(".ans")];
   all.forEach(a=>a.classList.add("locked"));
-  const correct = idx===q.correct;
+  all[q.correct].classList.add("correct");
+  all.forEach((a,i)=>{if(i!==q.correct)a.classList.add("dim")});
+  state.streak=0;state.timeTotal+=QUESTION_TIME;
+  const ex=$("#explain");
+  ex.innerHTML="<b>⏰ Temps écoulé !</b> "+q.exp;
+  ex.classList.add("show");
+  $(".next").classList.add("show");
+  state.log.push({q:q.q,good:q.a[q.correct],correct:false});
+}
+
+/* ---------- QUESTIONS ---------- */
+function renderQuestion(){
+  state.answered=false;
+  const q=state.queue[state.i];const meta=META[q.subj];
+  $("#qIndex").textContent=(state.i+1)+" / "+state.queue.length;
+  const tag=$("#qSubject");tag.textContent=meta.label;tag.style.background=meta.color;
+  $("#scorePill").textContent="⭐ "+state.score;
+  $("#bar").style.width=((state.i)/state.queue.length*100)+"%";
+  $("#streakTxt").textContent=state.streak>=3?("🔥 Série de "+state.streak+" !"):"";
+  $("#qText").textContent=q.q;
+  $("#explain").className="explain";$("#explain").innerHTML="";
+  $(".next").className="next";
+  const keys=["A","B","C","D"];
+  const wrap=$("#answers");wrap.innerHTML="";
+  q.a.forEach((t,idx)=>{
+    const b=document.createElement("button");b.className="ans";
+    b.innerHTML='<span class="key">'+keys[idx]+'</span><span>'+t+'</span>';
+    b.addEventListener("click",()=>choose(idx,b));
+    wrap.appendChild(b);
+  });
+  startTimer();
+}
+function choose(idx,btn){
+  if(state.answered)return;state.answered=true;
+  stopTimer();
+  const elapsed=(Date.now()-state.qStart)/1000;
+  const secLeft=Math.max(0,QUESTION_TIME-elapsed);
+  state.timeTotal+=Math.min(QUESTION_TIME,elapsed);
+  const q=state.queue[state.i];const all=[...document.querySelectorAll(".ans")];
+  all.forEach(a=>a.classList.add("locked"));
+  const correct=idx===q.correct;
+  let gained=0,bonus=0;
   if(correct){
+    bonus=Math.round(secLeft*SPEED_PTS);
+    gained=BASE_PTS+bonus;
+    state.score+=gained;state.correctCount++;state.bonusTotal+=bonus;state.streak++;
     btn.classList.add("correct");
-    state.score++;state.streak++;
     all.forEach((a,i)=>{if(i!==idx)a.classList.add("dim")});
     burst();
   }else{
-    btn.classList.add("wrong");
     state.streak=0;
+    btn.classList.add("wrong");
     all[q.correct].classList.add("correct");
     all.forEach((a,i)=>{if(i!==idx&&i!==q.correct)a.classList.add("dim")});
   }
   $("#scorePill").textContent="⭐ "+state.score;
   const ex=$("#explain");
-  ex.innerHTML=(correct?"<b>✅ Bonne réponse !</b> ":"<b>❌ Pas tout à fait.</b> ")+q.exp;
+  ex.innerHTML=(correct?("<b>✅ +"+gained+" pts"+(bonus>0?" (dont +"+bonus+" vitesse)":"")+"</b> "):"<b>❌ Pas tout à fait.</b> ")+q.exp;
   ex.classList.add("show");
   $(".next").classList.add("show");
-  state.log.push({q:q.q, your:q.a[idx], good:q.a[q.correct], correct, exp:q.exp, subj:BANK[q.subj].label});
+  state.log.push({q:q.q,good:q.a[q.correct],correct:correct});
 }
-
 $("#startBtn").addEventListener("click",startGame);
 $("#nextBtn").addEventListener("click",()=>{
   state.i++;
-  if(state.i>=state.queue.length) showResult();
-  else { renderQuestion(); gameEl.classList.remove("fade");void gameEl.offsetWidth;gameEl.classList.add("fade"); }
+  if(state.i>=state.queue.length)showResult();
+  else{renderQuestion();gameEl.classList.remove("fade");void gameEl.offsetWidth;gameEl.classList.add("fade");}
 });
 
+/* ---------- RÉSULTAT ---------- */
 function showResult(){
-  gameEl.classList.add("hide");
-  resEl.classList.remove("hide");resEl.classList.add("fade");
-  const total=state.queue.length, sc=state.score, pct=Math.round(sc/total*100);
-  $("#finalScore").textContent=sc;$("#finalTotal").textContent=total;
+  stopTimer();
+  gameEl.classList.add("hide");resEl.classList.remove("hide");resEl.classList.add("fade");
+  const total=state.queue.length,pct=Math.round(state.correctCount/total*100);
+  const avgTime=total? (state.timeTotal/total):0;
+  $("#finalScore").textContent=state.score;
+  $("#stCorrect").innerHTML=state.correctCount+"/"+total+"<span>bonnes</span>";
+  $("#stTime").innerHTML=avgTime.toFixed(1)+"s<span>temps moyen</span>";
+  $("#stBonus").innerHTML="+"+state.bonusTotal+"<span>bonus vitesse</span>";
   let medal,verdict,msg;
-  if(pct>=90){medal="🏆";verdict="Champion du Brevet !";msg="Excellent, tu maîtrises ! Continue comme ça. 🌟";bigBurst();}
-  else if(pct>=70){medal="🥇";verdict="Très bien !";msg="Solide ! Revois juste les questions ratées ci-dessous.";bigBurst();}
-  else if(pct>=50){medal="🥈";verdict="Bon travail !";msg="Tu progresses. Relis les explications pour viser plus haut.";}
-  else{medal="📚";verdict="Continue à réviser !";msg="Pas de panique, l'entraînement paie. Relance un quiz !";}
-  $("#medal").textContent=medal;$("#verdict").textContent=verdict;$("#resMsg").textContent=msg;
-  const list=$("#reslist");list.innerHTML="";
-  state.log.forEach(r=>{
-    const d=document.createElement("div");
-    d.className="resitem "+(r.correct?"ok":"no");
-    d.innerHTML='<span class="ic">'+(r.correct?"✅":"❌")+'</span><span>'+r.q+
-      (r.correct?"":'<em>Bonne réponse : '+r.good+'</em>')+'</span>';
-    list.appendChild(d);
-  });
+  if(pct>=90){medal="🏆";verdict="Champion du Brevet !";msg="Excellent, tu maîtrises ! 🌟";bigBurst();}
+  else if(pct>=70){medal="🥇";verdict="Très bien !";msg="Solide ! Encore un effort sur les ratés.";bigBurst();}
+  else if(pct>=50){medal="🥈";verdict="Bon travail !";msg="Tu progresses, continue !";}
+  else{medal="📚";verdict="Continue à réviser !";msg="L'entraînement paie, relance un quiz !";}
+  $("#medal").textContent=medal;$("#verdict").textContent=verdict;$("#resMsg")&&($("#resMsg").textContent=msg);
+  // préparer la perf pour le classement
+  const subjKeys=Object.keys(state.subjects).filter(k=>state.subjects[k]);
+  state.lastPerf={score:state.score,correct:state.correctCount,total:total,
+    avgTime:Math.round(avgTime*10)/10,bonus:state.bonusTotal,
+    subjects:subjKeys.length===4?"Toutes":subjKeys.map(k=>META[k].label).join(", "),
+    ts:Date.now()};
+  // reset UI pseudo
+  $("#pseudoBox").classList.remove("hide");
+  $("#savedMsg").classList.add("hide");
+  const saved=loadPseudo();if(saved)$("#pseudoIn").value=saved;
 }
-
 $("#againBtn").addEventListener("click",startGame);
-$("#homeBtn").addEventListener("click",()=>{
-  resEl.classList.add("hide");homeEl.classList.remove("hide");homeEl.classList.add("fade");
-});
+$("#homeBtn").addEventListener("click",()=>{resEl.classList.add("hide");homeEl.classList.remove("hide");homeEl.classList.add("fade");renderCountdowns();});
 
-/* ---- confettis ---- */
+/* ---------- CLASSEMENT (stockage partagé avec repli local) ---------- */
+const LB_KEY="brevet_leaderboard_v1";
+const hasShared=(typeof window!=="undefined"&&window.storage&&typeof window.storage.get==="function");
+let localLB=[]; // repli si pas de stockage partagé
+function loadPseudo(){try{return (window.__pseudo)||"";}catch(e){return"";}}
+function savePseudoMem(p){window.__pseudo=p;}
+
+async function getLeaderboard(){
+  if(hasShared){
+    try{const r=await window.storage.get(LB_KEY,true);return r&&r.value?JSON.parse(r.value):[];}
+    catch(e){return [];}
+  }
+  return localLB.slice();
+}
+async function setLeaderboard(list){
+  if(hasShared){
+    try{await window.storage.set(LB_KEY,JSON.stringify(list),true);}catch(e){}
+  }else{localLB=list.slice();}
+}
+async function submitScore(pseudo){
+  const perf=state.lastPerf;if(!perf)return;
+  let list=await getLeaderboard();
+  const entry={name:pseudo.slice(0,14),score:perf.score,correct:perf.correct,total:perf.total,
+    avgTime:perf.avgTime,subjects:perf.subjects,ts:perf.ts};
+  list.push(entry);
+  // tri : score décroissant, puis temps moyen croissant
+  list.sort((a,b)=> b.score-a.score || a.avgTime-b.avgTime);
+  list=list.slice(0,20);
+  await setLeaderboard(list);
+  return {list,entry};
+}
+$("#saveScoreBtn").addEventListener("click",async()=>{
+  const p=($("#pseudoIn").value||"").trim();
+  if(!p){$("#pseudoIn").focus();$("#pseudoIn").style.borderColor="#ef4444";return;}
+  savePseudoMem(p);
+  $("#saveScoreBtn").disabled=true;$("#saveScoreBtn").textContent="…";
+  const res=await submitScore(p);
+  $("#pseudoBox").classList.add("hide");
+  const msg=$("#savedMsg");msg.classList.remove("hide");
+  const rank=res.list.findIndex(e=>e.ts===res.entry.ts&&e.name===res.entry.name);
+  msg.textContent=rank>=0&&rank<20?("🎉 Score enregistré — "+(rank+1)+"ᵉ place !"):"Score enregistré !";
+  $("#saveScoreBtn").disabled=false;$("#saveScoreBtn").textContent="Enregistrer mon score";
+  window.__lastEntryTs=res.entry.ts;
+});
+async function renderLeaderboard(){
+  const list=await getLeaderboard();
+  const wrap=$("#lbList");wrap.innerHTML="";
+  if(!list.length){wrap.innerHTML='<div class="lbempty">Aucun score pour l\'instant.<br>Sois le premier à jouer ! 🚀</div>';}
+  else{
+    list.forEach((e,i)=>{
+      const row=document.createElement("div");
+      row.className="lbrow"+(i===0?" top1":i===1?" top2":i===2?" top3":"")+(window.__lastEntryTs&&e.ts===window.__lastEntryTs?" me":"");
+      const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+      row.innerHTML='<span class="rk">'+medal+'</span><span class="nm">'+e.name+'</span><span class="pts">'+e.score+'</span><span class="tm">'+e.avgTime+'s</span>';
+      wrap.appendChild(row);
+    });
+  }
+  $("#lbScope").textContent=hasShared?"Classement partagé entre joueurs":"Classement local (cet appareil)";
+}
+function openLeaderboard(){
+  resEl.classList.add("hide");homeEl.classList.add("hide");
+  lbEl.classList.remove("hide");lbEl.classList.add("fade");
+  renderLeaderboard();
+}
+$("#showLbBtn").addEventListener("click",openLeaderboard);
+$("#seeLbBtn").addEventListener("click",openLeaderboard);
+$("#lbAgainBtn").addEventListener("click",startGame);
+$("#lbHomeBtn").addEventListener("click",()=>{lbEl.classList.add("hide");homeEl.classList.remove("hide");homeEl.classList.add("fade");renderCountdowns();});
+
+/* ---------- CONFETTIS ---------- */
 function piece(x,big){
   const c=document.createElement("div");c.className="confetti";
   const colors=["#ec4899","#f59e0b","#10b981","#3b82f6","#fde047","#a855f7"];
   c.style.background=colors[Math.floor(Math.random()*colors.length)];
   c.style.left=x+"px";c.style.top="-20px";
-  const dx=(Math.random()-.5)*200, fall=(big?600:380)+Math.random()*200, rot=Math.random()*720;
+  const dx=(Math.random()-.5)*200,fall=(big?600:380)+Math.random()*200,rot=Math.random()*720;
   document.body.appendChild(c);
-  c.animate([{transform:"translate(0,0) rotate(0)",opacity:1},
-    {transform:`translate(${dx}px,${fall}px) rotate(${rot}deg)`,opacity:0}],
-    {duration:big?1400:900,easing:"cubic-bezier(.3,.7,.4,1)"}).onfinish=()=>c.remove();
+  c.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+dx+"px,"+fall+"px) rotate("+rot+"deg)",opacity:0}],{duration:big?1400:900,easing:"cubic-bezier(.3,.7,.4,1)"}).onfinish=()=>c.remove();
 }
 function burst(){const x=window.innerWidth/2;for(let i=0;i<14;i++)piece(x+(Math.random()-.5)*120,false);}
 function bigBurst(){for(let i=0;i<60;i++)setTimeout(()=>piece(Math.random()*window.innerWidth,true),i*20);}
+
+/* ---------- INIT ---------- */
+renderCountdowns();
+setInterval(renderCountdowns,60*60*1000); // rafraîchir chaque heure
 </script>
 </body>
 </html>
